@@ -1,0 +1,80 @@
+package net.therap.model;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+/**
+ * @author al.imran
+ * @since 02/06/2021
+ */
+@Entity
+@Table(name = "category")
+public class Category implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(unique = true)
+    @NotNull
+    @Size(min = 1, max = 50)
+    private String name;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products;
+
+    public Category() {
+        this.products = new HashSet<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
+    public boolean isNew() {
+        return id == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (Objects.nonNull(o) && (o instanceof Category)) {
+            return (id == ((Category) o).getId() &&
+                    name.equals(((Category) o).getName()));
+        }
+
+        return false;
+    }
+}
