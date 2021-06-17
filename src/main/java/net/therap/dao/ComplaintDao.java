@@ -41,6 +41,7 @@ public class ComplaintDao implements GenericDao<Complaint> {
         if (complaint.isNew()) {
             em.persist(complaint);
             em.flush();
+
         } else {
             complaint = em.merge(complaint);
         }

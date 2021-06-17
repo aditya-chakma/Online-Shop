@@ -27,8 +27,8 @@ public class UserEditor extends PropertyEditorSupport {
         if (Objects.nonNull(hashCode)) {
             String[] token = hashCode.split("@");
             int userId = Integer.parseInt(token[1]);
-
             setValue(userService.findById(userId));
+
         } else {
             setValue(null);
         }

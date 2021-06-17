@@ -53,6 +53,7 @@ public class CartItemDao implements GenericDao<CartItem> {
         if (cartItem.isNew()) {
             em.persist(cartItem);
             em.flush();
+
         } else {
             cartItem = em.merge(cartItem);
         }

@@ -37,12 +37,15 @@ public class ProductValidator implements Validator {
         if (product.isNew() && Objects.nonNull(productService.getProductByName(product.getName()))) {
             errors.rejectValue("name", "product.name",
                     messageSource.getMessage("message.productExist", null, null));
+
         } else if (Objects.isNull(product.getName())) {
             errors.rejectValue("name", "product.name",
                     messageSource.getMessage("message.invalidProduct", null, null));
+
         } else if (product.getQuantity() < 0) {
             errors.rejectValue("quantity", "product.quantity",
                     messageSource.getMessage("message.invalidQuantity", null, null));
+
         } else if (product.getPrice() < EPS) {
             errors.rejectValue("price", "product.price",
                     messageSource.getMessage("message.price", null, null));

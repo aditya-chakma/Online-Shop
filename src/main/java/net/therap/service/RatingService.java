@@ -50,6 +50,7 @@ public class RatingService {
             }
 
             return ((Long) ob[1]).doubleValue() / count;
+
         } else {
             return 0.0;
         }

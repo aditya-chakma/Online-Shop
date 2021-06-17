@@ -62,8 +62,8 @@ public class ProductImageController {
 
             modelMap.addAttribute(COMMAND_NAME_CATEGORY_LIST, categoryService.getAllCategory());
             modelMap.addAttribute(COMMAND_NAME_PRODUCT, productService.getProductById(productId));
-
             return PRODUCT_VIEW;
+
         } else {
             return REDIRECT_LOGIN;
         }

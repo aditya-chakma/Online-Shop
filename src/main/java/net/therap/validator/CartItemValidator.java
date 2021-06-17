@@ -39,9 +39,11 @@ public class CartItemValidator implements Validator {
         if (!(cartItem.getProduct().getStatus().equals(ProductStatus.IN_STOCK))) {
             errors.rejectValue("id", "cartItem.id",
                     messageSource.getMessage("message.noStock", null, null));
+
         } else if (cartItem.getProduct().getQuantity() < cartItem.getQuantity()) {
             errors.rejectValue("id", "cartItem.id",
                     messageSource.getMessage("message.quantityExceeded", null, null));
+
         } else if (Objects.nonNull(existedCartItem) && cartItem.isNew()) {
             if (existedCartItem.getQuantity() + 1 > cartItem.getProduct().getQuantity()) {
                 errors.rejectValue("id", "cartItem.id",

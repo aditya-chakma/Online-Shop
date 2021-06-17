@@ -27,8 +27,8 @@ public class ProductEditor extends PropertyEditorSupport {
         if (Objects.nonNull(hashCode)) {
             String[] token = hashCode.split("@");
             int productId = Integer.parseInt(token[1]);
-
             setValue(productService.getProductById(productId));
+
         } else {
             setValue(null);
         }

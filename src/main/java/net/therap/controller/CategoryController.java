@@ -69,6 +69,7 @@ public class CategoryController {
                     categoryId == 0 ? new Category() : categoryService.getCategoryById(categoryId));
 
             return VIEW_CATEGORY;
+
         } else {
             return REDIRECT_LOGIN;
         }
@@ -95,6 +96,7 @@ public class CategoryController {
             categoryService.saveOrUpdate(category);
             httpSession.setAttribute(SESSION_KEY_CATEGORY_LIST, categoryService.getAllCategory());
             return REDIRECT_CATEGORY;
+
         } else {
             return REDIRECT_LOGIN;
         }

@@ -40,6 +40,7 @@ public class OrderDao implements GenericDao<Order> {
         if (order.isNew()) {
             em.persist(order);
             em.flush();
+
         } else {
             order = em.merge(order);
         }

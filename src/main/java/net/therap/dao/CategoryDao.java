@@ -50,6 +50,7 @@ public class CategoryDao implements GenericDao<Category> {
         if (category.isNew()) {
             em.persist(category);
             em.flush();
+
         } else {
             category = em.merge(category);
         }

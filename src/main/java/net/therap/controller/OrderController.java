@@ -93,6 +93,7 @@ public class OrderController {
         if (AccesChecker.isCustomer(session)) {
             int id = (int) session.getAttribute(SESSION_KEY_USER_ID);
             orders = orderService.findByUserId(id);
+
         } else {
             orders = orderService.findAll();
         }

@@ -89,6 +89,7 @@ public class LoginController {
     private void setUpAttribute(ModelMap model, HttpServletRequest request, LoginCommand login) {
         if (BN.equals(request.getParameter(COMMAND_LANG))) {
             model.addAttribute(COMMAND_LANG, BN);
+
         } else {
             model.addAttribute(COMMAND_LANG, EN);
         }

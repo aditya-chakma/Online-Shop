@@ -28,6 +28,7 @@ public class ProductImageDao implements GenericDao<ProductImage> {
         if (productImage.isNew()) {
             em.persist(productImage);
             em.flush();
+
         } else {
             productImage = em.merge(productImage);
         }

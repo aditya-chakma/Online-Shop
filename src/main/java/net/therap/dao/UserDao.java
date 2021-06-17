@@ -42,6 +42,7 @@ public class UserDao implements GenericDao<User> {
         if (user.isNew()) {
             em.persist(user);
             em.flush();
+
         } else {
             em.merge(user);
         }

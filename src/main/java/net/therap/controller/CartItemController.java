@@ -79,6 +79,7 @@ public class CartItemController {
 
         if (bindingResult.hasFieldErrors("quantity")) {
             modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("quantity").getDefaultMessage());
+
         } else if (bindingResult.hasFieldErrors("id")) {
             modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("id").getDefaultMessage());
         }
@@ -93,6 +94,7 @@ public class CartItemController {
                     (Integer) httpSession.getAttribute(SESSION_KEY_USER_ID));
 
             return CART_ITEM_VIEW;
+
         } else {
             return REDIRECT_LOGIN;
         }
@@ -120,6 +122,7 @@ public class CartItemController {
 
             cartItemService.saveOrUpdate(cartItem);
             return REDIRECT_CART_ITEM_VIEW;
+
         } else {
             return REDIRECT_LOGIN;
         }
@@ -137,6 +140,7 @@ public class CartItemController {
                     messageSource.getMessage("message.cartRemoved", null, null));
 
             return REDIRECT_CART_ITEM_VIEW;
+
         } else {
             return REDIRECT_LOGIN;
         }

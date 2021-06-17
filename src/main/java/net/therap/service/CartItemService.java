@@ -47,6 +47,7 @@ public class CartItemService {
             if (Objects.nonNull(existedCartItem)) {
                 existedCartItem.setQuantity(existedCartItem.getQuantity() + 1);
                 cartItem = existedCartItem;
+
             } else {
                 cartItem.setQuantity(1);
             }

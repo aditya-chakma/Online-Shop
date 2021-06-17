@@ -61,6 +61,7 @@ public class ComplaintController {
 
         if (AccesChecker.isCustomer(session)) {
             complaints = complaintService.findByUserId((int) session.getAttribute(SESSION_KEY_USER_ID));
+
         } else {
             complaints = complaintService.findAll();
         }

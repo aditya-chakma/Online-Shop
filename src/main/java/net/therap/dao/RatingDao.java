@@ -50,6 +50,7 @@ public class RatingDao implements GenericDao<Rating> {
         if (rating.isNew()) {
             em.persist(rating);
             em.flush();
+
         } else {
             rating = em.merge(rating);
         }

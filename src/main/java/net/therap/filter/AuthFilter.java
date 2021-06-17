@@ -35,6 +35,7 @@ public class AuthFilter implements Filter {
 
         if (isLoginPath || isUserPath || isLoggedIn || isPublicPath) {
             filter.doFilter(request, response);
+
         } else {
             resp.sendRedirect(LOGIN);
         }

@@ -61,6 +61,7 @@ public class RatingController {
 
             ratingService.saveOrUpdate(rating);
             return REDIRECT_PRODUCT_DETAILS;
+
         } else {
             return REDIRECT_LOGIN;
         }

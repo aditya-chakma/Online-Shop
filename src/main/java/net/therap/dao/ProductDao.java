@@ -68,6 +68,7 @@ public class ProductDao implements GenericDao<Product> {
         if (product.isNew()) {
             em.persist(product);
             em.flush();
+
         } else {
             product = em.merge(product);
         }

@@ -62,6 +62,7 @@ public class ProductService {
             product.setStatus(product.getQuantity() == 0 ?
                     ProductStatus.OUT_OF_STOCK :
                     ProductStatus.IN_STOCK);
+
         } else {
             product.setStatus(ProductStatus.DISCONTINUED);
         }

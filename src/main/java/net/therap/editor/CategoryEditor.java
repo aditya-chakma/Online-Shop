@@ -26,6 +26,7 @@ public class CategoryEditor extends PropertyEditorSupport {
     public void setAsText(String categoryId) throws IllegalArgumentException {
         if (Objects.nonNull(categoryId)) {
             setValue(categoryService.getCategoryById(Integer.parseInt(categoryId)));
+
         } else {
             setValue(null);
         }

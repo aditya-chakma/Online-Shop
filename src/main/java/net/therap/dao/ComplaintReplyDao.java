@@ -30,6 +30,7 @@ public class ComplaintReplyDao implements GenericDao<ComplaintReply> {
         if (complaintReply.isNew()) {
             em.persist(complaintReply);
             em.flush();
+
         } else {
             complaintReply = em.merge(complaintReply);
         }

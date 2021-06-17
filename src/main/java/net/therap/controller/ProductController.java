@@ -98,8 +98,10 @@ public class ProductController {
 
         if (bindingResult.hasFieldErrors("name")) {
             modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("name").getDefaultMessage());
+
         } else if (bindingResult.hasFieldErrors("quantity")) {
             modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("quantity").getDefaultMessage());
+
         } else if (bindingResult.hasFieldErrors("price")) {
             modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("price").getDefaultMessage());
         }
@@ -162,8 +164,8 @@ public class ProductController {
             }
 
             setUpModelMapForProductAddUpdate(modelMap, product, lang);
-
             return PRODUCT_VIEW;
+
         } else {
             return REDIRECT_LOGIN;
         }
@@ -191,6 +193,7 @@ public class ProductController {
 
             productService.saveOrUpdate(product);
             return REDIRECT_PRODUCT;
+
         } else {
             return REDIRECT_LOGIN;
         }
@@ -210,6 +213,7 @@ public class ProductController {
                     (Integer) httpSession.getAttribute(SESSION_KEY_USER_ID), productName);
 
             return PRODUCT_LIST_VIEW;
+
         } else {
             return REDIRECT_LOGIN;
         }
@@ -237,6 +241,7 @@ public class ProductController {
         if (AccesChecker.isAdmin(httpSession)) {
             productService.discontinueProduct(productId, isContinue);
             return REDIRECT_PRODUCT_LIST;
+
         } else {
             return REDIRECT_LOGIN;
         }

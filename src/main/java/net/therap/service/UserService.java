@@ -43,6 +43,7 @@ public class UserService {
         if (user.isNew()) {
             user.setCreatedAt(new Date());
             user.setHashedPassword(pe.encode(user.getHashedPassword()));
+
         } else {
             user.setUpdatedAt(new Date());
         }

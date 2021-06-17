@@ -60,9 +60,11 @@ public class OrderService {
                 if (product.getQuantity() > 0) {
                     orderProduct.setQuantity(product.getQuantity());
                     product.setQuantity(0);
+
                 } else {
                     continue;
                 }
+
             } else {
                 orderProduct.setQuantity(item.getQuantity());
                 product.setQuantity(product.getQuantity() - item.getQuantity());
