@@ -1,11 +1,11 @@
 package net.therap.service;
 
-import net.therap.comparator.ComplaintReplyComparator;
 import net.therap.dao.ComplaintReplyDao;
 import net.therap.model.ComplaintReply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class ComplaintReplyService {
 
     public List<ComplaintReply> findByComplaintId(int id) {
         List<ComplaintReply> complaintReplies = complaintReplyDao.findByComplaintId(id);
-        complaintReplies.sort(new ComplaintReplyComparator());
+        Collections.sort(complaintReplies);
         return complaintReplies;
     }
 

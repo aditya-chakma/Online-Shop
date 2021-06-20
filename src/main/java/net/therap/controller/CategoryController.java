@@ -34,7 +34,7 @@ public class CategoryController {
     private static final String VIEW_CATEGORY = "category";
 
     private static final String REDIRECT_CATEGORY = "redirect:/category";
-    private static final String REDIRECT_LOGIN = "redirect:/";
+    private static final String REDIRECT_HOME = "redirect:/";
 
     @Autowired
     private CategoryService categoryService;
@@ -71,7 +71,7 @@ public class CategoryController {
             return VIEW_CATEGORY;
 
         } else {
-            return REDIRECT_LOGIN;
+            return REDIRECT_HOME;
         }
     }
 
@@ -98,7 +98,7 @@ public class CategoryController {
             return REDIRECT_CATEGORY;
 
         } else {
-            return REDIRECT_LOGIN;
+            return REDIRECT_HOME;
         }
     }
 }

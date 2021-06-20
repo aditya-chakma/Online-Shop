@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "complaint_reply")
-public class ComplaintReply implements Serializable {
+public class ComplaintReply implements Serializable, Comparable<ComplaintReply> {
 
     private static final long serialVersionUID = 1L;
 
@@ -80,5 +80,10 @@ public class ComplaintReply implements Serializable {
         }
 
         return false;
+    }
+
+    @Override
+    public int compareTo(ComplaintReply cr) {
+        return this.getId() >= cr.getId() ? 1 : -1;
     }
 }
