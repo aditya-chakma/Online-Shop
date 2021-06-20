@@ -172,11 +172,15 @@ public class Product implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof Product)) {
-            return (id == ((Product) o).getId() &&
-                    name.equals(((Product) o).getName()));
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof Product)) {
+            return false;
+        }
+
+        return Objects.equals(getId(), ((Product) o).getId()) &&
+                Objects.equals(getName(), ((Product) o).getName());
     }
 }

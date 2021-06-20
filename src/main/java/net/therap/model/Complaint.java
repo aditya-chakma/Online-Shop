@@ -21,6 +21,9 @@ public class Complaint implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Version
+    private int version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -50,6 +53,14 @@ public class Complaint implements Serializable {
     public Complaint() {
         this.status = ComplaintStatus.OPEN;
         this.complaintReplies = new HashSet<>();
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public int getId() {
@@ -119,10 +130,14 @@ public class Complaint implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof Complaint)) {
-            return getId() == ((Complaint) o).getId();
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof Complaint)) {
+            return false;
+        }
+
+        return Objects.equals(getId(), ((Complaint) o).getId());
     }
 }

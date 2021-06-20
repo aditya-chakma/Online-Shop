@@ -22,6 +22,9 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Version
+    private int version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -55,6 +58,14 @@ public class Order implements Serializable {
     public Order() {
         this.orderProducts = new HashSet<>();
         this.status = OrderStatus.PENDING;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public int getId() {
@@ -128,10 +139,14 @@ public class Order implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof Order)) {
-            return getId() == ((Order) o).getId();
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof Order)) {
+            return false;
+        }
+
+        return Objects.equals(getId(), ((Order) o).getId());
     }
 }

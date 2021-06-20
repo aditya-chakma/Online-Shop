@@ -70,11 +70,15 @@ public class Category implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof Category)) {
-            return (id == ((Category) o).getId() &&
-                    name.equals(((Category) o).getName()));
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof Category)) {
+            return false;
+        }
+
+        return Objects.equals(getId(), ((Category) o).getId()) &&
+                Objects.equals(getName(), ((Category) o).getName());
     }
 }

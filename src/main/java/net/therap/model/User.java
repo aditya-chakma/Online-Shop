@@ -27,6 +27,9 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Version
+    private int version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -90,6 +93,14 @@ public class User implements Serializable {
         this.cartItems = new HashSet<>();
         this.role = UserRole.CUSTOMER;
         this.imageLink = DEFAULT_IMAGE;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public int getId() {
@@ -215,10 +226,14 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof User)) {
-            return getEmail().equals(((User) o).getEmail());
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof User)) {
+            return false;
+        }
+
+        return Objects.equals(getEmail(), ((User) o).getEmail());
     }
 }

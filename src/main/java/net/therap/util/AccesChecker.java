@@ -13,9 +13,7 @@ import static net.therap.util.StringConst.SESSION_KEY_USER_ROLE;
 public class AccesChecker {
 
     public static boolean isAdmin(HttpSession session) {
-        Object o = session.getAttribute(SESSION_KEY_USER_ROLE);
-
-        if (Objects.nonNull(o) && o.equals(UserRole.ADMIN)) {
+        if (UserRole.ADMIN.equals(session.getAttribute(SESSION_KEY_USER_ROLE))) {
             return true;
         }
 
@@ -23,9 +21,7 @@ public class AccesChecker {
     }
 
     public static boolean isCustomer(HttpSession session) {
-        Object o = session.getAttribute(SESSION_KEY_USER_ROLE);
-
-        if (Objects.nonNull(o) && o.equals(UserRole.CUSTOMER)) {
+        if (UserRole.CUSTOMER.equals(session.getAttribute(SESSION_KEY_USER_ROLE))) {
             return true;
         }
 

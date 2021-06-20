@@ -27,7 +27,7 @@ import static net.therap.util.StringConst.SESSION_KEY_USER_ID;
 @Controller
 public class UserController {
 
-    private final String ATTRIBUTE_USER = "user";
+    private final String COMMAND_USER = "user";
     private final String VIEW_USER = "user";
 
     private final String REDIRECT_HOME = "redirect:/";
@@ -57,7 +57,7 @@ public class UserController {
         }
 
         User user = id == 0 ? new User() : userDao.findById(id);
-        model.addAttribute(ATTRIBUTE_USER, user);
+        model.addAttribute(COMMAND_USER, user);
         return VIEW_USER;
     }
 
@@ -72,7 +72,7 @@ public class UserController {
         }
 
         if (result.hasErrors()) {
-            model.addAttribute(ATTRIBUTE_USER, user);
+            model.addAttribute(COMMAND_USER, user);
             return VIEW_USER;
         }
 

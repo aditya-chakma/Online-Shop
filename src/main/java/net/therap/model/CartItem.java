@@ -111,11 +111,17 @@ public class CartItem implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof CartItem)) {
-            return (user.getId() == ((CartItem) o).getUser().getId() &&
-                    product.getId() == ((CartItem) o).getProduct().getId());
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof CartItem)) {
+            return false;
+        }
+
+        CartItem cartItem = (CartItem) o;
+
+        return Objects.equals(getUser().getId(), cartItem.getUser().getId()) &&
+                Objects.equals(getProduct().getId(), cartItem.getProduct().getId());
     }
 }

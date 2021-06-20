@@ -65,6 +65,10 @@ public class ProductImage implements Serializable {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
         if (Objects.nonNull(o) && (o instanceof ProductImage)) {
             return imageLink.equals(((ProductImage) o).getImageLink());
         }

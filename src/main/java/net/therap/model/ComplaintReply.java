@@ -75,11 +75,15 @@ public class ComplaintReply implements Serializable, Comparable<ComplaintReply> 
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof ComplaintReply)) {
-            return getId() == ((ComplaintReply) o).getId();
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof ComplaintReply)) {
+            return false;
+        }
+
+        return Objects.equals(getId(), ((ComplaintReply) o).getId());
     }
 
     @Override

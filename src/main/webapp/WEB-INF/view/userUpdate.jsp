@@ -10,14 +10,10 @@
 
 <div class="d-flex justify-content-center text-center mt-5">
     <form:form method="post" action="updateProfile" modelAttribute="user" enctype="multipart/form-data">
-        <table class="table table-bordered table-responsive table-striped">
-            <tbody>
-            <tr>
-                <td colspan="2">
-                    <form:hidden path="id"/>
-                </td>
-            </tr>
+        <form:hidden path="version"/>
+        <form:hidden path="id"/>
 
+        <table class="table table-bordered table-responsive table-striped">
             <tr>
                 <td><spring:message code="user.name"/> </td>
                 <td><form:input path="name"/></td>

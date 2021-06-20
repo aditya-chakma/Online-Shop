@@ -71,14 +71,17 @@ public class OrderProduct implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof OrderProduct)) {
-            OrderProduct op = (OrderProduct) o;
-
-            return (getId() == op.getId()) &&
-                    (getOrder().getId() == op.getOrder().getId()) &&
-                    (getProduct().getId() == op.getProduct().getId());
+        if (this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof OrderProduct)) {
+            return false;
+        }
+
+        OrderProduct op = (OrderProduct) o;
+        return Objects.equals(getId(), op.getId()) &&
+                Objects.equals(getOrder().getId(), op.getOrder().getId()) &&
+                Objects.equals(getProduct().getId(), op.getProduct().getId());
     }
 }

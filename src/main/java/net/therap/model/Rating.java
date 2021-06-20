@@ -89,11 +89,15 @@ public class Rating implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.nonNull(o) && (o instanceof Rating)) {
-            return (user.getId() == ((Rating) o).getUser().getId() &&
-                    product.getId() == ((Rating) o).getProduct().getId());
+        if(this == o) {
+            return true;
         }
 
-        return false;
+        if (!(o instanceof Rating)) {
+            return false;
+        }
+
+        return Objects.equals(getUser().getId(), ((Rating) o).getUser().getId()) &&
+                Objects.equals(getProduct().getId(), ((Rating) o).getProduct().getId());
     }
 }

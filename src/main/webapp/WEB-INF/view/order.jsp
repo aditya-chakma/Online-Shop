@@ -43,6 +43,7 @@
                             <form:hidden path="createdAt" class="date"/>
                             <form:hidden path="updatedAt" class="date"/>
                             <form:hidden path="subTotal"/>
+                            <form:hidden path="version"/>
 
                             <spring:message code="order.status"/>
                             <form:select path="status" cssClass="form-select" items="${listOfStatus}"/>
