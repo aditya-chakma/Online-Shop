@@ -3,8 +3,6 @@ package net.therap.therapshop.controller;
 import net.therap.therapshop.editor.CategoryEditor;
 import net.therap.therapshop.editor.ProductEditor;
 import net.therap.therapshop.editor.UserEditor;
-import net.therap.model.*;
-import net.therap.service.*;
 import net.therap.therapshop.model.*;
 import net.therap.therapshop.service.CategoryService;
 import net.therap.therapshop.service.ProductService;
@@ -27,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import java.util.Objects;
 
 /**

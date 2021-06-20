@@ -8,7 +8,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import static net.therap.therapshop.util.StringConst.*;
+import static net.therap.therapshop.util.StringConst.PERSISTENCE_UNIT_NAME;
 
 /**
  * @author al.imran
