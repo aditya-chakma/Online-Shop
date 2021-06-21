@@ -26,8 +26,6 @@ import javax.validation.Valid;
 @Controller
 public class LoginController {
 
-    private static final Logger logger = Logger.getLogger(LoginController.class);
-
     private static final String VIEW_LOGIN = "login";
 
     private static final String REDIRECT_HOME = "redirect:/";

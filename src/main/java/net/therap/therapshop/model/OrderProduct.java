@@ -81,7 +81,7 @@ public class OrderProduct implements Serializable {
 
         OrderProduct op = (OrderProduct) o;
         return Objects.equals(getId(), op.getId()) &&
-                Objects.equals(getOrder().getId(), op.getOrder().getId()) &&
-                Objects.equals(getProduct().getId(), op.getProduct().getId());
+                getOrder().equals(((OrderProduct) o).getOrder()) &&
+                getProduct().equals(((OrderProduct) o).getProduct());
     }
 }

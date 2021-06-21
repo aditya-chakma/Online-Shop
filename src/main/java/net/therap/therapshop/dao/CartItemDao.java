@@ -16,11 +16,9 @@ import java.util.List;
 @Repository
 public class CartItemDao implements GenericDao<CartItem> {
 
-    private static final String JPQL_FIND = "FROM CartItem " +
-            "WHERE user_id = :userId AND product_id = :productId";
+    private static final String JPQL_FIND = "FROM CartItem WHERE user.id = :userId AND product.id = :productId";
 
-    private static final String JPQL_FIND_BY_USER_ID = "FROM CartItem " +
-            "WHERE user_id = :userId";
+    private static final String JPQL_FIND_BY_USER_ID = "FROM CartItem WHERE user.id = :userId";
 
     @PersistenceContext
     private EntityManager em;
@@ -64,7 +62,6 @@ public class CartItemDao implements GenericDao<CartItem> {
     @Override
     @Transactional
     public void delete(int id) {
-        CartItem cartItem = findById(id);
-        em.remove(cartItem);
+        em.remove(em.getReference(CartItem.class, id));
     }
 }

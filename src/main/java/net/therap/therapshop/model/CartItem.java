@@ -121,7 +121,7 @@ public class CartItem implements Serializable {
 
         CartItem cartItem = (CartItem) o;
 
-        return Objects.equals(getUser().getId(), cartItem.getUser().getId()) &&
-                Objects.equals(getProduct().getId(), cartItem.getProduct().getId());
+        return getUser().equals(cartItem.getUser()) &&
+                getProduct().equals(cartItem.getProduct());
     }
 }

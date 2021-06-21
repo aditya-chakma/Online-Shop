@@ -97,7 +97,7 @@ public class Rating implements Serializable {
             return false;
         }
 
-        return Objects.equals(getUser().getId(), ((Rating) o).getUser().getId()) &&
-                Objects.equals(getProduct().getId(), ((Rating) o).getProduct().getId());
+        return getUser().equals(((Rating) o).getUser()) &&
+                getProduct().equals(((Rating) o).getProduct());
     }
 }

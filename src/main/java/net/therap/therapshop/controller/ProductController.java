@@ -50,9 +50,9 @@ public class ProductController {
     private static final String PRODUCT_LIST_VIEW = "productList";
     private static final String PRODUCT_DETAILS_VIEW = "productDetails";
 
-    private static final String REDIRECT_LOGIN = "redirect:/login";
     private static final String REDIRECT_PRODUCT = "redirect:/product";
     private static final String REDIRECT_PRODUCT_LIST = "redirect:/productList";
+    private static final String REDIRECT_HOME = "redirect:/";
 
     private static final String EN = "en";
     private static final String BN = "bn";
@@ -151,7 +151,7 @@ public class ProductController {
         modelMap.addAttribute(COMMAND_AVERAGE_RATING, ratingService.getRatingValue(productId));
     }
 
-    @GetMapping(value = {"/", "/product"})
+    @GetMapping(value = "/product")
     public String show(@RequestParam(value = "id", defaultValue = "0") int productId,
                        @RequestParam(defaultValue = EN) String lang,
                        ModelMap modelMap,
@@ -167,9 +167,9 @@ public class ProductController {
             setUpModelMapForProductAddUpdate(modelMap, product, lang);
             return PRODUCT_VIEW;
 
-        } else {
-            return REDIRECT_LOGIN;
         }
+
+        return REDIRECT_HOME;
     }
 
     @PostMapping(value = "/product")
@@ -195,12 +195,12 @@ public class ProductController {
             productService.saveOrUpdate(product);
             return REDIRECT_PRODUCT;
 
-        } else {
-            return REDIRECT_LOGIN;
         }
+
+        return REDIRECT_HOME;
     }
 
-    @GetMapping(value = "/productList")
+    @GetMapping(value = {"/","/productList"})
     public String showList(@RequestParam(defaultValue = "0") int categoryId,
                            @RequestParam(defaultValue = "") String productName,
                            ModelMap modelMap,
@@ -215,9 +215,9 @@ public class ProductController {
 
             return PRODUCT_LIST_VIEW;
 
-        } else {
-            return REDIRECT_LOGIN;
         }
+
+        return REDIRECT_HOME;
     }
 
     @GetMapping(value = "/productDetails")
@@ -243,8 +243,8 @@ public class ProductController {
             productService.discontinueProduct(productId, isContinue);
             return REDIRECT_PRODUCT_LIST;
 
-        } else {
-            return REDIRECT_LOGIN;
         }
+
+        return REDIRECT_HOME;
     }
 }
