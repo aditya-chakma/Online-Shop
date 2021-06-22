@@ -5,7 +5,6 @@ import net.therap.therapshop.util.OrderStatus;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,12 +16,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "`order`")
-public class Order implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Version
-    private int version;
+@NamedQueries(value = {
+        @NamedQuery(name = "order.findAll",
+                query = "SELECT o FROM Order o"),
+        @NamedQuery(name = "order.findByUserId",
+                query = "SELECT o FROM Order o WHERE o.user.id=:userId")
+})
+public class Order extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,18 +59,12 @@ public class Order implements Serializable {
         this.status = OrderStatus.PENDING;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -127,6 +121,7 @@ public class Order implements Serializable {
         return this.status == OrderStatus.DELIVERED;
     }
 
+    @Override
     public boolean isNew() {
         return id == 0;
     }

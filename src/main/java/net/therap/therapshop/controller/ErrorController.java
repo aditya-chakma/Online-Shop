@@ -79,7 +79,7 @@ public class ErrorController {
 
         ModelAndView model = new ModelAndView();
         model.setViewName(VIEW_ERROR);
-        model.addObject(COMMAND_MESSAGE, e.getMessage());
+        model.addObject(COMMAND_MESSAGE, "unknown:" + e.getMessage());
 
         return model;
     }

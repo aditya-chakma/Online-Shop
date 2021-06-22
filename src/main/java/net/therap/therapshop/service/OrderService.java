@@ -78,7 +78,7 @@ public class OrderService {
         order.setSubTotal(price);
 
         for (CartItem item : cartItems) {
-            cartItemDao.delete(item.getId());
+            cartItemDao.remove(item.getId());
         }
 
         u.getCartItems().clear();

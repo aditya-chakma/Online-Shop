@@ -1,9 +1,9 @@
 package net.therap.therapshop.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,16 +13,21 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "rating")
-public class Rating implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@NamedQueries(value = {
+        @NamedQuery(name = "rating.findByUserAndProductId",
+                query = "SELECT r FROM Rating r WHERE r.user.id = :userId AND r.product.id = :productId"),
+        @NamedQuery(name = "rating.findByProductId",
+                query = "SELECT COUNT(r), SUM(r.ratingValue) FROM Rating r WHERE r.product.id = :productId")
+})
+public class Rating extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
-    @Min(value = 0)
+    @Min(0)
+    @Max(10)
     @Column(name = "rating_value")
     private int ratingValue;
 
@@ -38,10 +43,12 @@ public class Rating implements Serializable {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -78,6 +85,7 @@ public class Rating implements Serializable {
         this.createdAt = createdAt;
     }
 
+    @Override
     public boolean isNew() {
         return id == 0;
     }

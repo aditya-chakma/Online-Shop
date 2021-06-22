@@ -3,7 +3,6 @@ package net.therap.therapshop.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,9 +11,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "product_image")
-public class ProductImage implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ProductImage extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +26,12 @@ public class ProductImage implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -53,6 +52,7 @@ public class ProductImage implements Serializable {
         this.product = product;
     }
 
+    @Override
     public boolean isNew() {
         return id == 0;
     }

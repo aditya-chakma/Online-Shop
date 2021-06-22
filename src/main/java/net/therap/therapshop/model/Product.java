@@ -8,7 +8,6 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -17,9 +16,17 @@ import java.util.*;
  */
 @Entity
 @Table(name = "product")
-public class Product implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@NamedQueries(value = {
+        @NamedQuery(name = "product.findAll",
+                query = "SELECT p FROM Product p"),
+        @NamedQuery(name = "product.findAllByName",
+                query = "SELECT p FROM Product p WHERE p.name LIKE :name"),
+        @NamedQuery(name = "product.findByName",
+                query = "SELECT p FROM Product p WHERE p.name = :name"),
+        @NamedQuery(name = "product.findByCategoryId",
+                query = "SELECT p FROM Product p WHERE p.category.id = :categoryId")
+})
+public class Product extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,10 +80,12 @@ public class Product implements Serializable {
         this.updatedAt = new Date();
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -161,6 +170,7 @@ public class Product implements Serializable {
         this.images = images;
     }
 
+    @Override
     public boolean isNew() {
         return id == 0;
     }

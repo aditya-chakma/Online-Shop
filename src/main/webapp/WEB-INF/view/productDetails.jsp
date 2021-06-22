@@ -106,7 +106,8 @@
                         <form:hidden path="id"/>
                         <form:hidden path="user"/>
                         <form:hidden path="product"/>
-                        <form:input type="number" class="text-center" style="width: 40px" path="ratingValue"/>
+                        <form:hidden path="version"/>
+                        <form:input type="number" class="text-center" style="width: 40px" path="ratingValue" step="1" min="1" max="10"/>
                         <button type="submit" class="btn btn-sm btn-primary">
                             <spring:message code="button.rateIt"/>
                         </button>
@@ -117,6 +118,7 @@
                         <form:hidden path="id"/>
                         <form:hidden path="product"/>
                         <form:hidden path="user"/>
+                        <form:hidden path="version"/>
                         <form:hidden path="quantity"/>
                         <c:if test="${product.status == 'OUT_OF_STOCK' || product.status == 'DISCONTINUED'}">
                             <button type="submit" class="btn btn-sm btn-primary disabled" style="width: 105px">

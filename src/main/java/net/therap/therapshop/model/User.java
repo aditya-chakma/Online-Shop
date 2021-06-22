@@ -8,7 +8,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,12 +22,10 @@ import static net.therap.therapshop.util.StringConst.REGEX_MOBILE_NUMBER;
  */
 @Entity
 @Table(name = "user")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @Version
-    private int version;
+@NamedQueries(value = {
+        @NamedQuery(name = "user.byEmail", query = "SELECT u FROM User u WHERE u.email=:email")
+})
+public class User extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,18 +92,12 @@ public class User implements Serializable {
         this.imageLink = DEFAULT_IMAGE;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -215,6 +206,7 @@ public class User implements Serializable {
         this.cartItems = cartItems;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == 0;
     }

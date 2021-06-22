@@ -32,6 +32,7 @@
                enctype="multipart/form-data">
         <form:hidden path="id"/>
         <form:hidden path="status"/>
+        <form:hidden path="version"/>
 
         <div class="form-group mt-1">
             <label><spring:message code="label.product"/></label>

@@ -57,6 +57,6 @@ public class CartItemService {
     }
 
     public void remove(int id) {
-        cartItemDao.delete(id);
+        cartItemDao.remove(id);
     }
 }

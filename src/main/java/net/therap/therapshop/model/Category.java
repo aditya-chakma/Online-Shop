@@ -3,7 +3,6 @@ package net.therap.therapshop.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,9 +13,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "category")
-public class Category implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@NamedQueries(value = {
+        @NamedQuery(name = "category.findAll",
+                query = "SELECT c FROM Category c"),
+        @NamedQuery(name = "category.findByName",
+                query = "SELECT c FROM Category c WHERE c.name = :name")
+})
+public class Category extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +37,12 @@ public class Category implements Serializable {
         this.products = new HashSet<>();
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -58,6 +63,7 @@ public class Category implements Serializable {
         this.products = products;
     }
 
+    @Override
     public boolean isNew() {
         return id == 0;
     }

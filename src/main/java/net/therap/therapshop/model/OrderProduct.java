@@ -3,7 +3,6 @@ package net.therap.therapshop.model;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,9 +11,11 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "order_product")
-public class OrderProduct implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@NamedQueries(value = {
+        @NamedQuery(name = "orderProduct.findAllByOrderId",
+                query = "SELECT op FROM OrderProduct op WHERE op.order.id=:orderId")
+})
+public class OrderProduct extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +33,12 @@ public class OrderProduct implements Serializable {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -62,6 +65,11 @@ public class OrderProduct implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public boolean isNew() {
+        return this.id == 0;
     }
 
     @Override

@@ -3,7 +3,6 @@ package net.therap.therapshop.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,9 +12,11 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "complaint_reply")
-public class ComplaintReply implements Serializable, Comparable<ComplaintReply> {
-
-    private static final long serialVersionUID = 1L;
+@NamedQueries(value = {
+        @NamedQuery(name = "complaintReply.findByComplaintId",
+                query = "SELECT c FROM ComplaintReply c WHERE c.complaint.id = :complaintId")
+})
+public class ComplaintReply extends AbstractModel implements Comparable<ComplaintReply> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +33,12 @@ public class ComplaintReply implements Serializable, Comparable<ComplaintReply> 
     @JoinColumn(name = "complaint_id", referencedColumnName = "id")
     private Complaint complaint;
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -64,6 +67,7 @@ public class ComplaintReply implements Serializable, Comparable<ComplaintReply> 
         this.complaint = complaint;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == 0;
     }

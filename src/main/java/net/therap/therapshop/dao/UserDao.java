@@ -4,8 +4,6 @@ import net.therap.therapshop.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -13,40 +11,20 @@ import java.util.List;
  * @since 6/5/21
  */
 @Repository
-public class UserDao implements GenericDao<User> {
+public class UserDao extends Dao {
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Override
     public User findById(int id) {
-        return em.find(User.class, id);
+        return super.finById(id, User.class);
     }
 
     public List<User> findByEmail(String email) {
-        return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+        return em.createNamedQuery("user.byEmail", User.class)
                 .setParameter("email", email)
                 .getResultList();
     }
 
-    public List<User> findByEmailAndPassword(String email, String password) {
-        return em.createQuery("SELECT u FROM User u WHERE u.email = :email and u.hashedPassword = :pass", User.class)
-                .setParameter("email", email)
-                .setParameter("pass", password)
-                .getResultList();
-    }
-
-    @Override
     @Transactional
     public User saveOrUpdate(User user) {
-        if (user.isNew()) {
-            em.persist(user);
-            em.flush();
-
-        } else {
-            em.merge(user);
-        }
-
-        return user;
+        return super.saveOrUpdate(user);
     }
 }

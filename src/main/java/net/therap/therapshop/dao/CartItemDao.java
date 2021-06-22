@@ -4,9 +4,8 @@ import net.therap.therapshop.model.CartItem;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 
 /**
@@ -14,29 +13,21 @@ import java.util.List;
  * @since 08/06/2021
  */
 @Repository
-public class CartItemDao implements GenericDao<CartItem> {
+public class CartItemDao extends Dao {
 
-    private static final String JPQL_FIND = "FROM CartItem WHERE user.id = :userId AND product.id = :productId";
-
-    private static final String JPQL_FIND_BY_USER_ID = "FROM CartItem WHERE user.id = :userId";
-
-    @PersistenceContext
-    private EntityManager em;
-
-    @Override
     public CartItem findById(int id) {
-        return em.find(CartItem.class, id);
+        return super.finById(id, CartItem.class);
     }
 
     public List<CartItem> findCartItemByUserId(int userId) {
-        return em.createQuery(JPQL_FIND_BY_USER_ID, CartItem.class)
+        return em.createNamedQuery("cartItem.findByUserId", CartItem.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }
 
-    public CartItem findCartItemByUserIdAndProductId(int userId, int productId) {
+    public CartItem findCartItemByUserIdAndProductId(int userId, int productId) throws NonUniqueResultException {
         try {
-            return em.createQuery(JPQL_FIND, CartItem.class)
+            return em.createNamedQuery("cartItem.findByUserAndProductId", CartItem.class)
                     .setParameter("userId", userId)
                     .setParameter("productId", productId)
                     .getSingleResult();
@@ -45,23 +36,16 @@ public class CartItemDao implements GenericDao<CartItem> {
         }
     }
 
-    @Override
     @Transactional
     public CartItem saveOrUpdate(CartItem cartItem) {
-        if (cartItem.isNew()) {
-            em.persist(cartItem);
-            em.flush();
-
-        } else {
-            cartItem = em.merge(cartItem);
-        }
-
-        return cartItem;
+        return super.saveOrUpdate(cartItem);
     }
 
-    @Override
     @Transactional
-    public void delete(int id) {
-        em.remove(em.getReference(CartItem.class, id));
+    public void remove(int id) {
+        CartItem cartItem = new CartItem();
+        cartItem.setId(id);
+
+        super.remove(cartItem);
     }
 }

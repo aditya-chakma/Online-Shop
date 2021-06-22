@@ -3,7 +3,6 @@ package net.therap.therapshop.model;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,9 +12,13 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "cart_item")
-public class CartItem implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@NamedQueries(value = {
+        @NamedQuery(name = "cartItem.findByUserId",
+                query = "FROM CartItem WHERE user.id = :userId"),
+        @NamedQuery(name = "cartItem.findByUserAndProductId",
+                query = "FROM CartItem c WHERE c.user.id = :userId AND c.product.id = :productId")
+})
+public class CartItem extends AbstractModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,10 +47,12 @@ public class CartItem implements Serializable {
     @Transient
     private double total;
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -100,6 +105,7 @@ public class CartItem implements Serializable {
         this.total = total;
     }
 
+    @Override
     public boolean isNew() {
         return id == 0;
     }

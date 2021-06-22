@@ -4,42 +4,27 @@ import net.therap.therapshop.model.ProductImage;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 /**
  * @author al.imran
  * @since 05/06/2021
  */
 @Repository
-public class ProductImageDao implements GenericDao<ProductImage> {
+public class ProductImageDao extends Dao {
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Override
     public ProductImage findById(int id) {
-        return em.find(ProductImage.class, id);
+        return super.finById(id, ProductImage.class);
     }
 
-    @Override
     @Transactional
     public ProductImage saveOrUpdate(ProductImage productImage) {
-        if (productImage.isNew()) {
-            em.persist(productImage);
-            em.flush();
-
-        } else {
-            productImage = em.merge(productImage);
-        }
-
-        return productImage;
+        return super.saveOrUpdate(productImage);
     }
 
-    @Override
     @Transactional
     public void delete(int id) {
-        ProductImage productImage = findById(id);
-        em.remove(productImage);
+        ProductImage productImage = new ProductImage();
+        productImage.setId(id);
+
+        super.remove(productImage);
     }
 }
