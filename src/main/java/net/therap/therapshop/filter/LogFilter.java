@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*", dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class LogFilter implements Filter {
 
-    private static final Logger logger = Logger.getLogger("net.therap");
+    private static final Logger logger = Logger.getLogger("net.therap.therapshop");
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

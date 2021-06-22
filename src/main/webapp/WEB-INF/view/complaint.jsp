@@ -29,7 +29,7 @@
                     <td><form:textarea path="reply.message" cols="30" rows="15"/></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><form:errors path="reply"/></td>
+                    <td colspan="2"><form:errors path="reply.message"/></td>
                 </tr>
 
                 <tr>

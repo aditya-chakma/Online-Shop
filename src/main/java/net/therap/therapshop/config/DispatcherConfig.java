@@ -27,7 +27,7 @@ import java.util.Locale;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"net.therap"})
-public class WebAppConfig implements WebMvcConfigurer {
+public class DispatcherConfig implements WebMvcConfigurer {
 
     private static final int MAX_UPLOAD_SIZE_IN_BYTES = 20848820;
 

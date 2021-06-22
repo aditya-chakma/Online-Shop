@@ -3,6 +3,7 @@ package net.therap.therapshop.model;
 import net.therap.therapshop.util.ComplaintStatus;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -47,6 +48,7 @@ public class Complaint implements Serializable {
     @OneToMany(mappedBy = "complaint", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ComplaintReply> complaintReplies;
 
+    @Valid
     @Transient
     private ComplaintReply reply;
 

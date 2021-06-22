@@ -1,12 +1,12 @@
 package net.therap.therapshop.controller;
 
+import net.therap.therapshop.exception.NoAccessException;
 import net.therap.therapshop.model.Complaint;
 import net.therap.therapshop.service.ComplaintService;
 import net.therap.therapshop.service.UserService;
 import net.therap.therapshop.util.AccesChecker;
 import net.therap.therapshop.util.ComplaintStatus;
 import net.therap.therapshop.util.StringConst;
-import net.therap.therapshop.validator.ComplaintValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -41,13 +41,9 @@ public class ComplaintController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ComplaintValidator complaintValidator;
-
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-        binder.addValidators(complaintValidator);
     }
 
     @GetMapping(value = "/complaintList")
@@ -70,10 +66,10 @@ public class ComplaintController {
 
     @GetMapping(value = "/complaint")
     public String show(HttpSession session,
-                       ModelMap model) {
+                       ModelMap model) throws NoAccessException{
 
         if (!AccesChecker.isCustomer(session)) {
-            return REDIRECT_HOME;
+            throw new NoAccessException();
         }
 
         Complaint complaint = new Complaint();
