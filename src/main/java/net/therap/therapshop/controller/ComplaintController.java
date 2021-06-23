@@ -66,7 +66,7 @@ public class ComplaintController {
 
     @GetMapping(value = "/complaint")
     public String show(HttpSession session,
-                       ModelMap model) throws NoAccessException{
+                       ModelMap model) throws NoAccessException {
 
         if (!AccesChecker.isCustomer(session)) {
             throw new NoAccessException();

@@ -4,7 +4,7 @@ package net.therap.therapshop.exception;
  * @author aditya.chakma
  * @since 6/21/21
  */
-public class NoAccessException extends RuntimeException{
+public class NoAccessException extends RuntimeException {
 
     private static final String message = "No Access for this user!";
 

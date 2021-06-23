@@ -1,6 +1,5 @@
 package net.therap.therapshop.service;
 
-import net.therap.therapshop.dao.CartItemDao;
 import net.therap.therapshop.dao.OrderDao;
 import net.therap.therapshop.model.*;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package net.therap.therapshop.controller;
 
-import net.therap.therapshop.dao.UserDao;
 import net.therap.therapshop.model.User;
 import net.therap.therapshop.service.UserService;
 import net.therap.therapshop.util.AccesChecker;

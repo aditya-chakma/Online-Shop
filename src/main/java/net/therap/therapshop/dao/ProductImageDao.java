@@ -2,7 +2,6 @@ package net.therap.therapshop.dao;
 
 import net.therap.therapshop.model.ProductImage;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author al.imran

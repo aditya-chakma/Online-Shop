@@ -2,10 +2,8 @@ package net.therap.therapshop.dao;
 
 import net.therap.therapshop.model.Category;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import java.util.List;
 
 /**
  * @author al.imran

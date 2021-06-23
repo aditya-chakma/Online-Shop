@@ -57,7 +57,7 @@ public class ExceptionResolver {
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "IO Exception occurred")
     @ExceptionHandler(IOException.class)
     public void handleIOError(HttpServletRequest request,
-                                      IOException ex) {
+                              IOException ex) {
 
         logger.info("IO Error occurred:" + request.getRequestURI());
         logger.error("IO Error: " + ex.getMessage());

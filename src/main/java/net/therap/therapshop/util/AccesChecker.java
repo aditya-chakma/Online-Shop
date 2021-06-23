@@ -1,7 +1,6 @@
 package net.therap.therapshop.util;
 
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
 
 /**
  * @author aditya.chakma

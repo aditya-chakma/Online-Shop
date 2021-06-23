@@ -2,7 +2,6 @@ package net.therap.therapshop.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
