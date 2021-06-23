@@ -15,7 +15,7 @@ import java.util.List;
 public class ProductDao extends Dao {
 
     public Product findById(int id) {
-        return super.finById(id, Product.class);
+        return super.findById(id, Product.class);
     }
 
     public List<Product> findAll() {

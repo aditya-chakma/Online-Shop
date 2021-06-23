@@ -15,7 +15,7 @@ import java.util.List;
 public class CategoryDao extends Dao {
 
     public Category findById(int id) {
-        return super.finById(id, Category.class);
+        return super.findById(id, Category.class);
     }
 
     public List<Category> findAll() {

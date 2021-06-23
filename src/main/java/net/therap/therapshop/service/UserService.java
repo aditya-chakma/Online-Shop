@@ -31,7 +31,7 @@ public class UserService {
     private UserDao userDao;
 
     public User findById(int userId) {
-        return userDao.findById(userId);
+        return userDao.findById(userId, User.class);
     }
 
     public List<User> finByEmail(String email) {
@@ -64,7 +64,7 @@ public class UserService {
     }
 
     public byte[] getImageByteArray(int userId) throws IOException {
-        User user = userDao.findById(userId);
+        User user = userDao.findById(userId, User.class);
         String imageLink = user.getImageLink();
 
         return Files.readAllBytes(Paths.get(imageLink));

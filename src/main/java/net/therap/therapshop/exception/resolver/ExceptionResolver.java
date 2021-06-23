@@ -1,4 +1,4 @@
-package net.therap.therapshop.controller;
+package net.therap.therapshop.exception.resolver;
 
 import net.therap.therapshop.exception.NoAccessException;
 import org.apache.log4j.Logger;
@@ -18,7 +18,7 @@ import java.util.Arrays;
  * @since 6/21/21
  */
 @ControllerAdvice
-public class ErrorController {
+public class ExceptionResolver {
 
     private static final Logger logger = Logger.getLogger("net.therap.therapshop");
 

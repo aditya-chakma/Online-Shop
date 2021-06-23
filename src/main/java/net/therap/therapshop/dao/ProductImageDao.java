@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductImageDao extends Dao {
 
     public ProductImage findById(int id) {
-        return super.finById(id, ProductImage.class);
+        return super.findById(id, ProductImage.class);
     }
 
     @Transactional

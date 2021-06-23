@@ -18,7 +18,7 @@ public class ComplaintDao extends Dao {
     }
 
     public Complaint findById(int id) {
-        return super.finById(id, Complaint.class);
+        return super.findById(id, Complaint.class);
     }
 
     public List<Complaint> findByUserId(int userId) {

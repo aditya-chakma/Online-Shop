@@ -2,7 +2,6 @@ package net.therap.therapshop.service;
 
 import net.therap.therapshop.dao.ProductDao;
 import net.therap.therapshop.dao.RatingDao;
-import net.therap.therapshop.dao.UserDao;
 import net.therap.therapshop.model.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class RatingService {
     private ProductDao productDao;
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     public Rating getRatingByUserIdAndProductId(int userId, int productId) {
         Rating rating = ratingDao.findByUserIdAndProdutId(userId, productId);
@@ -32,7 +31,7 @@ public class RatingService {
         if (Objects.isNull(rating)) {
             rating = new Rating();
             rating.setProduct(productDao.findById(productId));
-            rating.setUser(userDao.findById(userId));
+            rating.setUser(userService.findById(userId));
         }
 
         return rating;

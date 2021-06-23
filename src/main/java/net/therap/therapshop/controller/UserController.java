@@ -32,9 +32,6 @@ public class UserController {
     private final String REDIRECT_HOME = "redirect:/";
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
@@ -55,7 +52,7 @@ public class UserController {
             return REDIRECT_HOME;
         }
 
-        User user = id == 0 ? new User() : userDao.findById(id);
+        User user = id == 0 ? new User() : userService.findById(id);
         model.addAttribute(COMMAND_USER, user);
         return VIEW_USER;
     }

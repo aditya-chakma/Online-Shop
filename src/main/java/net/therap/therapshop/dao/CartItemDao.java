@@ -16,7 +16,7 @@ import java.util.List;
 public class CartItemDao extends Dao {
 
     public CartItem findById(int id) {
-        return super.finById(id, CartItem.class);
+        return super.findById(id, CartItem.class);
     }
 
     public List<CartItem> findCartItemByUserId(int userId) {

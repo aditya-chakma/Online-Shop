@@ -24,7 +24,7 @@ public class OrderDao extends Dao {
     }
 
     public Order findById(int id) {
-        return super.finById(id, Order.class);
+        return super.findById(id, Order.class);
     }
 
     @Transactional

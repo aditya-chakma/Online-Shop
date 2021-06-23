@@ -33,7 +33,7 @@ public class Dao {
                 .getResultList();
     }
 
-    public <T extends AbstractModel> T finById(int primaryKey, Class<T> c) {
+    public <T extends AbstractModel> T findById(int primaryKey, Class<T> c) {
         return em.find(c, primaryKey);
     }
 
