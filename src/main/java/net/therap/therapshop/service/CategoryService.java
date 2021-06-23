@@ -17,15 +17,15 @@ public class CategoryService {
     @Autowired
     private CategoryDao categoryDao;
 
-    public List<Category> getAllCategory() {
-        return categoryDao.findAll();
+    public List<Category> findAll() {
+        return categoryDao.findAll("category.findAll", Category.class);
     }
 
-    public Category getCategoryById(int id) {
-        return categoryDao.findById(id);
+    public Category findById(int id) {
+        return categoryDao.findById(id, Category.class);
     }
 
-    public Category getCategoryByName(String name) {
+    public Category findByName(String name) {
         return categoryDao.findByName(name);
     }
 

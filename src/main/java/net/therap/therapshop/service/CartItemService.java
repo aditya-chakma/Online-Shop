@@ -20,7 +20,7 @@ public class CartItemService {
     private CartItemDao cartItemDao;
 
     public CartItem getCartItemById(int id) {
-        return cartItemDao.findById(id);
+        return cartItemDao.findById(id, CartItem.class);
     }
 
     public CartItem getCartItemByUserIdAndProductId(int userId, int productId) {
@@ -57,6 +57,9 @@ public class CartItemService {
     }
 
     public void remove(int id) {
-        cartItemDao.remove(id);
+        CartItem cartItem = new CartItem();
+        cartItem.setId(id);
+
+        cartItemDao.remove(cartItem);
     }
 }

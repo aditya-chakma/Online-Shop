@@ -14,14 +14,6 @@ import java.util.List;
 @Repository
 public class ProductDao extends Dao {
 
-    public Product findById(int id) {
-        return super.findById(id, Product.class);
-    }
-
-    public List<Product> findAll() {
-        return super.findAll("product.findAll", Product.class);
-    }
-
     public List<Product> findAllByName(String name) {
         return em.createNamedQuery("product.findAllByName", Product.class)
                 .setParameter("name", "%" + name + "%")
@@ -42,10 +34,5 @@ public class ProductDao extends Dao {
         return em.createNamedQuery("product.findByCategoryId", Product.class)
                 .setParameter("categoryId", id)
                 .getResultList();
-    }
-
-    @Transactional
-    public Product saveOrUpdate(Product product) {
-        return super.saveOrUpdate(product);
     }
 }

@@ -30,7 +30,7 @@ public class CategoryValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        if (Objects.nonNull(categoryService.getCategoryByName((((Category) target).getName())))) {
+        if (Objects.nonNull(categoryService.findByName((((Category) target).getName())))) {
             errors.rejectValue("name", "category.name",
                     messageSource.getMessage("message.categoryExist", null, null));
         }

@@ -26,7 +26,7 @@ public class OrderService {
     private ProductService productService;
 
     @Autowired
-    private CartItemDao cartItemDao;
+    private CartItemService cartItemService;
 
     public Order saveOrUpdate(Order order) {
         if (order.isNew()) {
@@ -77,7 +77,7 @@ public class OrderService {
         order.setSubTotal(price);
 
         for (CartItem item : cartItems) {
-            cartItemDao.remove(item.getId());
+            cartItemService.remove(item.getId());
         }
 
         user.getCartItems().clear();
@@ -85,11 +85,11 @@ public class OrderService {
     }
 
     public List<Order> findAll() {
-        return orderDao.findAll();
+        return orderDao.findAll("order.findAll", Order.class);
     }
 
     public Order findById(int id) {
-        return orderDao.findById(id);
+        return orderDao.findById(id, Order.class);
     }
 
     public List<Order> findByUserId(int userId) {

@@ -95,7 +95,7 @@ public class ProductController {
                        HttpSession httpSession) {
 
         if (AccesChecker.isAdmin(httpSession)) {
-            Product product = (productId == 0 ? new Product() : productService.getProductById(productId));
+            Product product = (productId == 0 ? new Product() : productService.findById(productId));
 
             if (Objects.isNull(product.getStatus())) {
                 product.setStatus(ProductStatus.IN_STOCK);
@@ -143,7 +143,7 @@ public class ProductController {
 
         if (Objects.nonNull(httpSession.getAttribute(StringConst.SESSION_KEY_USER_ROLE))) {
             httpSession.setAttribute(StringConst.SESSION_KEY_USER_ID, httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
-            httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.getAllCategory());
+            httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.findAll());
 
             setUpModelMapForProductList(modelMap, categoryId,
                     (int) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID), productName);
@@ -189,7 +189,7 @@ public class ProductController {
 
         modelMap.addAttribute(COMMAND_LANG, BN.equals(lang) ? BN : EN);
         modelMap.addAttribute(COMMAND_PRODUCT, product);
-        modelMap.addAttribute(COMMAND_CATEGORY_LIST, categoryService.getAllCategory());
+        modelMap.addAttribute(COMMAND_CATEGORY_LIST, categoryService.findAll());
     }
 
     private void setUpModelMapForProductList(ModelMap modelMap,
@@ -203,7 +203,7 @@ public class ProductController {
         modelMap.addAttribute(COMMAND_CART_ITEM, cartItem);
         modelMap.addAttribute(COMMAND_IS_ADMIN, false);
         modelMap.addAttribute(COMMAND_PRODUCT_LIST, categoryId == 0 ?
-                productService.getAllProductByName(productName) :
+                productService.findAllByName(productName) :
                 productService.getProductByCategoryId(categoryId));
     }
 
@@ -211,7 +211,7 @@ public class ProductController {
                                                 int productId,
                                                 int userId) {
 
-        Product product = productService.getProductById(productId);
+        Product product = productService.findById(productId);
         User user = userService.findById(userId);
 
         Rating rating = ratingService.getRatingByUserIdAndProductId(userId, productId);

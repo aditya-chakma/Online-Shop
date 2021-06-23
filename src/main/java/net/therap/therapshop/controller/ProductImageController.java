@@ -60,8 +60,8 @@ public class ProductImageController {
         if (AccesChecker.isAdmin(httpSession)) {
             productImageService.remove(imageId);
 
-            modelMap.addAttribute(COMMAND_NAME_CATEGORY_LIST, categoryService.getAllCategory());
-            modelMap.addAttribute(COMMAND_NAME_PRODUCT, productService.getProductById(productId));
+            modelMap.addAttribute(COMMAND_NAME_CATEGORY_LIST, categoryService.findAll());
+            modelMap.addAttribute(COMMAND_NAME_PRODUCT, productService.findById(productId));
             return PRODUCT_VIEW;
 
         } else {

@@ -29,6 +29,9 @@ public class ProductImageService {
     }
 
     public void remove(int id) {
-        productImageDao.delete(id);
+        ProductImage productImage = new ProductImage();
+        productImage.setId(id);
+
+        productImageDao.remove(productImage);
     }
 }

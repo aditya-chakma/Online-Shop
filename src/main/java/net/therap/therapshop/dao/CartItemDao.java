@@ -15,10 +15,6 @@ import java.util.List;
 @Repository
 public class CartItemDao extends Dao {
 
-    public CartItem findById(int id) {
-        return super.findById(id, CartItem.class);
-    }
-
     public List<CartItem> findCartItemByUserId(int userId) {
         return em.createNamedQuery("cartItem.findByUserId", CartItem.class)
                 .setParameter("userId", userId)
@@ -34,18 +30,5 @@ public class CartItemDao extends Dao {
         } catch (NoResultException e) {
             return null;
         }
-    }
-
-    @Transactional
-    public CartItem saveOrUpdate(CartItem cartItem) {
-        return super.saveOrUpdate(cartItem);
-    }
-
-    @Transactional
-    public void remove(int id) {
-        CartItem cartItem = new CartItem();
-        cartItem.setId(id);
-
-        super.remove(cartItem);
     }
 }

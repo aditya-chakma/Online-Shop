@@ -32,15 +32,19 @@ public class ProductService {
     @Autowired
     private ProductImageDao productImageDao;
 
-    public Product getProductById(int id) {
-        return productDao.findById(id);
+    public List<Product> findAll() {
+        return productDao.findAll("product.findAll", Product.class);
     }
 
-    public Product getProductByName(String name) {
+    public Product findById(int id) {
+        return productDao.findById(id, Product.class);
+    }
+
+    public Product findByName(String name) {
         return productDao.findByName(name);
     }
 
-    public List<Product> getAllProductByName(String name) {
+    public List<Product> findAllByName(String name) {
         return productDao.findAllByName(name);
     }
 
@@ -49,13 +53,13 @@ public class ProductService {
     }
 
     public byte[] getImageByteArray(int id) throws IOException {
-        Set<ProductImage> imageSet = productDao.findById(id).getProductImages();
+        Set<ProductImage> imageSet = productDao.findById(id, Product.class).getProductImages();
         String path = imageSet.isEmpty() ? StringConst.DEFAULT_IMAGE : imageSet.iterator().next().getImageLink();
         return Files.readAllBytes(Paths.get(path));
     }
 
     public void discontinueProduct(int productId, boolean isContinue) {
-        Product product = productDao.findById(productId);
+        Product product = productDao.findById(productId, Product.class);
 
         if (isContinue) {
             product.setStatus(product.getQuantity() == 0 ?
@@ -79,6 +83,15 @@ public class ProductService {
         List<MultipartFile> images = product.getImages();
         product = productDao.saveOrUpdate(product);
 
+        Set<ProductImage> productImages = saveMultipartFiles(images, product);
+
+        if (!productImages.isEmpty()) {
+            product.setProductImages(productImages);
+            productDao.saveOrUpdate(product);
+        }
+    }
+
+    private Set<ProductImage> saveMultipartFiles(List<MultipartFile> images, Product product) {
         Set<ProductImage> productImages = new HashSet<>();
 
         for (MultipartFile multipartFile : images) {
@@ -103,9 +116,6 @@ public class ProductService {
             }
         }
 
-        if (!productImages.isEmpty()) {
-            product.setProductImages(productImages);
-            productDao.saveOrUpdate(product);
-        }
+        return productImages;
     }
 }

@@ -30,9 +30,4 @@ public class RatingDao extends Dao {
                 .setParameter("productId", id)
                 .getResultList();
     }
-
-    @Transactional
-    public Rating saveOrUpdate(Rating rating) {
-        return super.saveOrUpdate(rating);
-    }
 }

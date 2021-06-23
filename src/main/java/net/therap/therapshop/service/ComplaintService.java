@@ -20,11 +20,11 @@ public class ComplaintService {
     private ComplaintDao complaintDao;
 
     public List<Complaint> findAll() {
-        return complaintDao.findAll();
+        return complaintDao.findAll("complaint.findAll", Complaint.class);
     }
 
     public Complaint findById(int id) {
-        return complaintDao.findById(id);
+        return complaintDao.findById(id, Complaint.class);
     }
 
     public List<Complaint> findByUserId(int userId) {

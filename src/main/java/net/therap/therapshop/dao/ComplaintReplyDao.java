@@ -18,10 +18,4 @@ public class ComplaintReplyDao extends Dao {
                 .setParameter("complaintId", complaintId)
                 .getResultList();
     }
-
-
-    @Transactional
-    public ComplaintReply saveOrUpdate(ComplaintReply complaintReply) {
-        return super.saveOrUpdate(complaintReply);
-    }
 }

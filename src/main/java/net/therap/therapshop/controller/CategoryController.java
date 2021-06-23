@@ -65,7 +65,7 @@ public class CategoryController {
 
         if (AccesChecker.isAdmin(httpSession)) {
             modelMap.addAttribute(COMMAND_CATEGORY,
-                    categoryId == 0 ? new Category() : categoryService.getCategoryById(categoryId));
+                    categoryId == 0 ? new Category() : categoryService.findById(categoryId));
 
             return VIEW_CATEGORY;
 
@@ -93,7 +93,7 @@ public class CategoryController {
                     messageSource.getMessage("message.categoryAdd", null, null));
 
             categoryService.saveOrUpdate(category);
-            httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.getAllCategory());
+            httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.findAll());
             return REDIRECT_CATEGORY;
 
         } else {

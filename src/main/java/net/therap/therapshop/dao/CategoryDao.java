@@ -14,14 +14,6 @@ import java.util.List;
 @Repository
 public class CategoryDao extends Dao {
 
-    public Category findById(int id) {
-        return super.findById(id, Category.class);
-    }
-
-    public List<Category> findAll() {
-        return super.findAll("category.findAll", Category.class);
-    }
-
     public Category findByName(String name) {
         try {
             return em.createNamedQuery("category.findByName", Category.class)
@@ -30,10 +22,5 @@ public class CategoryDao extends Dao {
         } catch (NoResultException e) {
             return null;
         }
-    }
-
-    @Transactional
-    public Category saveOrUpdate(Category category) {
-        return super.saveOrUpdate(category);
     }
 }

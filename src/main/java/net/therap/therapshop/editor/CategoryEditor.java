@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.beans.PropertyEditorSupport;
-import java.text.ParseException;
 import java.util.Objects;
 
 /**
@@ -27,7 +26,7 @@ public class CategoryEditor extends PropertyEditorSupport {
     public void setAsText(String categoryId) throws IllegalArgumentException {
         if (Objects.nonNull(categoryId)) {
             try {
-                setValue(categoryService.getCategoryById(Integer.parseInt(categoryId)));
+                setValue(categoryService.findById(Integer.parseInt(categoryId)));
             } catch (NumberFormatException e) {
                 setValue(null);
             }

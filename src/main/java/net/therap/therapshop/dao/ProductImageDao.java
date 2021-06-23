@@ -14,12 +14,4 @@ public class ProductImageDao extends Dao {
     public ProductImage findById(int id) {
         return super.findById(id, ProductImage.class);
     }
-
-    @Transactional
-    public void delete(int id) {
-        ProductImage productImage = new ProductImage();
-        productImage.setId(id);
-
-        super.remove(productImage);
-    }
 }
