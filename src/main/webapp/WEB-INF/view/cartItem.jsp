@@ -59,10 +59,12 @@
                                     <c:param name="productId" value="${cartItem.product.id}"/>
                                     <c:param name="isCartItemPage" value="true"/>
                                 </c:url>
+
                                 <form:form modelAttribute="cartItemCmd" action="${cartItemUrl}" method="post">
                                     <form:hidden path="id" value="${cartItem.id}"/>
                                     <form:hidden path="product" value="${cartItem.product}"/>
                                     <form:hidden path="user" value="${cartItem.user}"/>
+                                    <form:hidden path="version"/>
                                     <form:input path="quantity" value="${cartItem.quantity}" type="number"
                                                 style="text-align: center; width: 65px"/>
                                     <button name="update" type="submit" class="btn btn-sm btn-primary">

@@ -42,44 +42,14 @@ public class OrderService {
         Set<OrderProduct> orderProducts = new HashSet<>();
 
         Order order = new Order();
+        double price = cartToOrder(cartItems, order, orderProducts);
+
         order.setUser(user);
-
-        double price = 0.0;
-
-        for (CartItem item : cartItems) {
-            Product product = item.getProduct();
-            OrderProduct orderProduct = new OrderProduct();
-
-            orderProduct.setOrder(order);
-            orderProduct.setProduct(product);
-
-            if (item.getQuantity() > product.getQuantity()) {
-                if (product.getQuantity() > 0) {
-                    orderProduct.setQuantity(product.getQuantity());
-                    product.setQuantity(0);
-
-                } else {
-                    continue;
-                }
-
-            } else {
-                orderProduct.setQuantity(item.getQuantity());
-                product.setQuantity(product.getQuantity() - item.getQuantity());
-            }
-
-            productService.saveOrUpdate(product);
-            orderProducts.add(orderProduct);
-            price += item.getQuantity() * item.getProduct().getPrice();
-        }
-
-        order.setOrderProducts(orderProducts);
         order.setSubTotal(price);
+        order.setOrderProducts(orderProducts);
 
-        for (CartItem item : cartItems) {
-            cartItemService.remove(item.getId());
-        }
+        removeCart(cartItems, user);
 
-        user.getCartItems().clear();
         return saveOrUpdate(order);
     }
 
@@ -93,5 +63,44 @@ public class OrderService {
 
     public List<Order> findByUserId(int userId) {
         return orderDao.findByUserId(userId);
+    }
+
+    private void removeCart(Set<CartItem> cartItems, User user) {
+        for (CartItem item : cartItems) {
+            cartItemService.remove(item.getId());
+        }
+
+        user.getCartItems().clear();
+    }
+
+    private double cartToOrder(Set<CartItem> cartItems, Order order, Set<OrderProduct> orderProducts) {
+        double price = 0.0;
+
+        for (CartItem item : cartItems) {
+            Product product = item.getProduct();
+            OrderProduct orderProduct = new OrderProduct();
+
+            orderProduct.setOrder(order);
+            orderProduct.setProduct(product);
+
+            if (item.getQuantity() > product.getQuantity()) {
+                if (product.getQuantity() > 0) {
+                    orderProduct.setQuantity(product.getQuantity());
+                    product.setQuantity(0);
+                } else {
+                    continue;
+                }
+            } else {
+                orderProduct.setQuantity(item.getQuantity());
+                product.setQuantity(product.getQuantity() - item.getQuantity());
+            }
+
+            productService.saveOrUpdate(product);
+
+            orderProducts.add(orderProduct);
+            price += item.getQuantity() * item.getProduct().getPrice();
+        }
+
+        return price;
     }
 }
