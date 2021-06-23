@@ -16,7 +16,7 @@
             <th scope="col"><spring:message code="order.number"/> </th>
             <th scope="col"><spring:message code="order.time"/></th>
             <th scope="col"><spring:message code="order.updateTime"/> </th>
-            <th scope="col"><spring:message code="user.address"/></th>
+            <th scope="col" style="max-width: 400px"><spring:message code="user.address"/></th>
             <th scope="col"><spring:message code="order.total"/></th>
             <th scope="col"><spring:message code="order.status"/></th>
             <th scope="col"><spring:message code="order.details"/> </th>
@@ -28,7 +28,7 @@
                 <td><c:out value="# ${order.id}"/></td>
                 <td><c:out value="${order.createdAt}"/></td>
                 <td><c:out value="${order.updatedAt}"/></td>
-                <td><c:out value="${order.user.address}"/></td>
+                <td style="max-width: 400px"><c:out value="${order.user.address}"/></td>
                 <td><c:out value="${order.subTotal}"/></td>
                 <td><c:out value="${order.status}"/></td>
                 <td>

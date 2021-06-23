@@ -25,7 +25,6 @@ public class Rating extends AbstractModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
     @Min(0)
     @Max(10)
     @Column(name = "rating_value")

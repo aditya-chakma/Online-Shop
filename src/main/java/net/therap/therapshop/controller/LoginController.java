@@ -4,7 +4,6 @@ import net.therap.therapshop.cmd.LoginCommand;
 import net.therap.therapshop.util.AccesChecker;
 import net.therap.therapshop.util.SessionHelper;
 import net.therap.therapshop.validator.LoginValidator;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -73,14 +72,14 @@ public class LoginController {
             return VIEW_LOGIN;
         }
 
-        sessionHelper.setSession(request, loginCommand);
+        sessionHelper.updateSessionAttribute(request, loginCommand);
         return REDIRECT_PL;
     }
 
     @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request) {
 
-        sessionHelper.clearSession(request);
+        sessionHelper.clearSessionAttribute(request);
         return REDIRECT_LOGIN;
     }
 

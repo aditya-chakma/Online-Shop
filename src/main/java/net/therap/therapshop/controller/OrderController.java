@@ -102,12 +102,16 @@ public class OrderController {
     }
 
     @PostMapping(value = "/proceed")
-    public String proceed(HttpSession session) {
+    public String proceed(ModelMap model,
+                          HttpSession session) {
         int id = (int) session.getAttribute(StringConst.SESSION_KEY_USER_ID);
         User user = userService.findById(id);
-        orderService.saveOrUpdateFromCart(user);
 
-        return REDIRECT_OL;
+        Order order = orderService.saveOrUpdateFromCart(user);
+        setUpAttributes(model, order);
+        model.addAttribute(StringConst.IS_ADMIN, AccesChecker.isAdmin(session));
+
+        return VIEW_ORDER;
     }
 
     private void setUpAttributes(ModelMap model, Order order) {

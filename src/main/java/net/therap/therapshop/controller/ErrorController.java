@@ -56,18 +56,12 @@ public class ErrorController {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "IO Exception occurred")
     @ExceptionHandler(IOException.class)
-    public ModelAndView handleIOError(HttpServletRequest request,
+    public void handleIOError(HttpServletRequest request,
                                       IOException ex) {
 
         logger.info("IO Error occurred:" + request.getRequestURI());
         logger.error("IO Error: " + ex.getMessage());
         logger.trace("Trace: " + Arrays.toString(ex.getStackTrace()));
-
-        ModelAndView model = new ModelAndView();
-        model.setViewName(VIEW_ERROR);
-        model.addObject(COMMAND_MESSAGE, ex.getMessage());
-
-        return model;
     }
 
     @ExceptionHandler(Exception.class)

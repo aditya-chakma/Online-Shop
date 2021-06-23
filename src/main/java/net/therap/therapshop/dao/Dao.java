@@ -17,7 +17,7 @@ public class Dao {
     EntityManager em;
 
     @Transactional
-    <T extends AbstractModel> T saveOrUpdate(T t) {
+    public <T extends AbstractModel> T saveOrUpdate(T t) {
         if (t.isNew()) {
             em.persist(t);
             em.flush();
@@ -28,17 +28,17 @@ public class Dao {
         return t;
     }
 
-    <T extends AbstractModel> List<T> findAll(String queryName, Class<T> c) {
+    public <T extends AbstractModel> List<T> findAll(String queryName, Class<T> c) {
         return em.createNamedQuery(queryName, c)
                 .getResultList();
     }
 
-    <T extends AbstractModel> T finById(int primaryKey, Class<T> c) {
+    public <T extends AbstractModel> T finById(int primaryKey, Class<T> c) {
         return em.find(c, primaryKey);
     }
 
     @Transactional
-    <T extends AbstractModel> void remove(T t) {
+    public <T extends AbstractModel> void remove(T t) {
         em.remove(em.getReference(t.getClass(), t.getId()));
     }
 }

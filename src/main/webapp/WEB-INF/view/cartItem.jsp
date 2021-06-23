@@ -68,7 +68,9 @@
                                     <button name="update" type="submit" class="btn btn-sm btn-primary">
                                         <spring:message code="button.update"/>
                                     </button>
+                                    <form:errors path="quantity"/>
                                 </form:form>
+
                                 <c:url value="/cartItemDelete" var="cartItemDeleteUrl">
                                     <c:param name="cartItemId" value="${cartItem.id}"/>
                                 </c:url>

@@ -1,5 +1,6 @@
 package net.therap.therapshop.controller;
 
+import net.therap.therapshop.dao.UserDao;
 import net.therap.therapshop.editor.ProductEditor;
 import net.therap.therapshop.editor.UserEditor;
 import net.therap.therapshop.model.CartItem;
@@ -56,32 +57,14 @@ public class CartItemController {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private UserDao userDao;
+
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(cartItemValidator);
         webDataBinder.registerCustomEditor(Product.class, "product", productEditor);
         webDataBinder.registerCustomEditor(User.class, "user", userEditor);
-    }
-
-    private void setUpModelMapForCartItemAddUpdate(ModelMap modelMap,
-                                                   CartItem cartItem,
-                                                   int userId) {
-
-        Pair<List<CartItem>, Double> pair = cartItemService.getCartItemByUserId(userId);
-        modelMap.addAttribute(COMMAND_CART_ITEMS, pair.getFirst());
-        modelMap.addAttribute(COMMAND_GRAND_TOTAL, pair.getSecond());
-        modelMap.addAttribute(COMMAND_CART_ITEM, cartItem);
-    }
-
-    private void setUpErrorField(BindingResult bindingResult,
-                                 ModelMap modelMap) {
-
-        if (bindingResult.hasFieldErrors("quantity")) {
-            modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("quantity").getDefaultMessage());
-
-        } else if (bindingResult.hasFieldErrors("id")) {
-            modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("id").getDefaultMessage());
-        }
     }
 
     @GetMapping(value = "/cartItem")
@@ -108,17 +91,16 @@ public class CartItemController {
 
         if (AccesChecker.isCustomer(httpSession)) {
             if (bindingResult.hasErrors()) {
+                System.out.println(cartItem);
                 setUpModelMapForCartItemAddUpdate(modelMap, cartItem,
-                        (Integer) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
-
-                setUpErrorField(bindingResult, modelMap);
+                        (int) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
 
                 return CART_ITEM_VIEW;
             }
 
             redirectAttributes.addFlashAttribute(COMMAND_MESSAGE,
                     messageSource.getMessage("message.cartUpdate", null, null));
-
+            //System.out.println(cartItem);
             cartItemService.saveOrUpdate(cartItem);
             return REDIRECT_CART_ITEM_VIEW;
 
@@ -143,5 +125,15 @@ public class CartItemController {
         } else {
             return REDIRECT_LOGIN;
         }
+    }
+
+    private void setUpModelMapForCartItemAddUpdate(ModelMap modelMap,
+                                                   CartItem cartItem,
+                                                   int userId) {
+
+        Pair<List<CartItem>, Double> pair = cartItemService.getCartItemByUserId(userId);
+        modelMap.addAttribute(COMMAND_CART_ITEMS, pair.getFirst());
+        modelMap.addAttribute(COMMAND_GRAND_TOTAL, pair.getSecond());
+        modelMap.addAttribute(COMMAND_CART_ITEM, cartItem);
     }
 }

@@ -14,9 +14,6 @@ import java.util.List;
 @Repository
 public class ProductDao extends Dao {
 
-    private static final String JPQL_FIND_BY_NAME = "FROM Product " +
-            "WHERE name = :name";
-
     public Product findById(int id) {
         return super.finById(id, Product.class);
     }

@@ -16,11 +16,6 @@ public class ProductImageDao extends Dao {
     }
 
     @Transactional
-    public ProductImage saveOrUpdate(ProductImage productImage) {
-        return super.saveOrUpdate(productImage);
-    }
-
-    @Transactional
     public void delete(int id) {
         ProductImage productImage = new ProductImage();
         productImage.setId(id);

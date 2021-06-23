@@ -21,7 +21,6 @@ public class OrderProduct extends AbstractModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
     @Min(value = 0, message = "Quantity can not be negative")
     private int quantity;
 

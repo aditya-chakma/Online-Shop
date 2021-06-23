@@ -17,6 +17,11 @@
                     <form:hidden path="id"/>
                 </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <form:input path="rollNo"/>
+                </td>
+            </tr>
 
             <tr>
                 <td><spring:message code="user.name"/> </td>

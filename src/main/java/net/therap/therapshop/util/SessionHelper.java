@@ -20,7 +20,7 @@ public class SessionHelper {
     @Autowired
     private UserDao userDao;
 
-    public void setSession(HttpServletRequest request, LoginCommand loginCommand) {
+    public void updateSessionAttribute(HttpServletRequest request, LoginCommand loginCommand) {
         HttpSession session = request.getSession();
         User user = userDao.findByEmail(loginCommand.getEmail()).get(0);
 
@@ -29,7 +29,7 @@ public class SessionHelper {
         session.setAttribute(StringConst.SESSION_KEY_LOGGEDIN, true);
     }
 
-    public void clearSession(HttpServletRequest request) {
+    public void clearSessionAttribute(HttpServletRequest request) {
         HttpSession session = request.getSession();
 
         if (Objects.nonNull(session.getAttribute(StringConst.SESSION_KEY_USER_ID))) {

@@ -11,7 +11,6 @@ import net.therap.therapshop.service.UserService;
 import net.therap.therapshop.util.AccesChecker;
 import net.therap.therapshop.util.ProductStatus;
 import net.therap.therapshop.util.StringConst;
-import net.therap.therapshop.validator.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.context.MessageSource;
@@ -79,33 +78,109 @@ public class ProductController {
     private UserEditor userEditor;
 
     @Autowired
-    private ProductValidator productValidator;
-
-    @Autowired
     private MessageSource messageSource;
 
     @InitBinder(value = "product")
     public void initBinder(WebDataBinder webDataBinder) {
-        webDataBinder.addValidators(productValidator);
-
         webDataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
         webDataBinder.registerCustomEditor(Category.class, "category", categoryEditor);
         webDataBinder.registerCustomEditor(Product.class, "product", productEditor);
         webDataBinder.registerCustomEditor(User.class, "user", userEditor);
     }
 
-    private void setUpErrorField(BindingResult bindingResult,
-                                 ModelMap modelMap) {
+    @GetMapping(value = "/product")
+    public String show(@RequestParam(value = "id", defaultValue = "0") int productId,
+                       @RequestParam(defaultValue = EN) String lang,
+                       ModelMap modelMap,
+                       HttpSession httpSession) {
 
-        if (bindingResult.hasFieldErrors("name")) {
-            modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("name").getDefaultMessage());
+        if (AccesChecker.isAdmin(httpSession)) {
+            Product product = (productId == 0 ? new Product() : productService.getProductById(productId));
 
-        } else if (bindingResult.hasFieldErrors("quantity")) {
-            modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("quantity").getDefaultMessage());
+            if (Objects.isNull(product.getStatus())) {
+                product.setStatus(ProductStatus.IN_STOCK);
+            }
 
-        } else if (bindingResult.hasFieldErrors("price")) {
-            modelMap.addAttribute(COMMAND_ERROR, bindingResult.getFieldError("price").getDefaultMessage());
+            setUpModelMapForProductAddUpdate(modelMap, product, lang);
+            return PRODUCT_VIEW;
         }
+
+        return REDIRECT_HOME;
+    }
+
+    @PostMapping(value = "/product")
+    public String process(@Valid @ModelAttribute("product") Product product,
+                          BindingResult bindingResult,
+                          @RequestParam(defaultValue = EN) String lang,
+                          HttpSession httpSession,
+                          ModelMap modelMap,
+                          RedirectAttributes redirectAttributes,
+                          SessionStatus sessionStatus) {
+
+        if (AccesChecker.isAdmin(httpSession)) {
+            if (bindingResult.hasErrors()) {
+                setUpModelMapForProductAddUpdate(modelMap, product, lang);
+                return PRODUCT_VIEW;
+            }
+
+            redirectAttributes.addFlashAttribute(COMMAND_MESSAGE, product.isNew() ?
+                    messageSource.getMessage("message.productSuccess", null, null) :
+                    messageSource.getMessage("message.productUpdate", null, null));
+
+            productService.saveOrUpdate(product);
+            return REDIRECT_PRODUCT;
+
+        }
+
+        return REDIRECT_HOME;
+    }
+
+    @GetMapping(value = {"/", "/productList"})
+    public String showList(@RequestParam(defaultValue = "0") int categoryId,
+                           @RequestParam(defaultValue = "") String productName,
+                           ModelMap modelMap,
+                           HttpSession httpSession) {
+
+        if (Objects.nonNull(httpSession.getAttribute(StringConst.SESSION_KEY_USER_ROLE))) {
+            httpSession.setAttribute(StringConst.SESSION_KEY_USER_ID, httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
+            httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.getAllCategory());
+
+            setUpModelMapForProductList(modelMap, categoryId,
+                    (int) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID), productName);
+
+            return PRODUCT_LIST_VIEW;
+
+        }
+
+        return REDIRECT_HOME;
+    }
+
+    @GetMapping(value = "/productDetails")
+    public String showDetails(@RequestParam(defaultValue = "0") int productId,
+                              ModelMap modelMap,
+                              HttpSession httpSession) {
+
+        productId = (productId == 0 ?
+                (int) modelMap.getAttribute("redirectProductId") : productId);
+
+        setUpModelMapForProductDetails(modelMap, productId,
+                (Integer) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
+
+        return PRODUCT_DETAILS_VIEW;
+    }
+
+    @PostMapping(value = "/productDiscontinue")
+    public String processDiscontinue(@RequestParam int productId,
+                                     @RequestParam(defaultValue = "false") boolean isContinue,
+                                     HttpSession httpSession) {
+
+        if (AccesChecker.isAdmin(httpSession)) {
+            productService.discontinueProduct(productId, isContinue);
+            return REDIRECT_PRODUCT_LIST;
+
+        }
+
+        return REDIRECT_HOME;
     }
 
     private void setUpModelMapForProductAddUpdate(ModelMap modelMap,
@@ -149,102 +224,5 @@ public class ProductController {
         modelMap.addAttribute(COMMAND_RATING, rating);
         modelMap.addAttribute(COMMAND_PRODUCT, product);
         modelMap.addAttribute(COMMAND_AVERAGE_RATING, ratingService.getRatingValue(productId));
-    }
-
-    @GetMapping(value = "/product")
-    public String show(@RequestParam(value = "id", defaultValue = "0") int productId,
-                       @RequestParam(defaultValue = EN) String lang,
-                       ModelMap modelMap,
-                       HttpSession httpSession) {
-
-        if (AccesChecker.isAdmin(httpSession)) {
-            Product product = (productId == 0 ? new Product() : productService.getProductById(productId));
-
-            if (Objects.isNull(product.getStatus())) {
-                product.setStatus(ProductStatus.IN_STOCK);
-            }
-
-            setUpModelMapForProductAddUpdate(modelMap, product, lang);
-            return PRODUCT_VIEW;
-
-        }
-
-        return REDIRECT_HOME;
-    }
-
-    @PostMapping(value = "/product")
-    public String process(@Valid @ModelAttribute("product") Product product,
-                          BindingResult bindingResult,
-                          @RequestParam(defaultValue = EN) String lang,
-                          HttpSession httpSession,
-                          ModelMap modelMap,
-                          RedirectAttributes redirectAttributes,
-                          SessionStatus sessionStatus) {
-
-        if (AccesChecker.isAdmin(httpSession)) {
-            if (bindingResult.hasErrors()) {
-                setUpModelMapForProductAddUpdate(modelMap, product, lang);
-                setUpErrorField(bindingResult, modelMap);
-                return PRODUCT_VIEW;
-            }
-
-            redirectAttributes.addFlashAttribute(COMMAND_MESSAGE, product.isNew() ?
-                    messageSource.getMessage("message.productSuccess", null, null) :
-                    messageSource.getMessage("message.productUpdate", null, null));
-
-            productService.saveOrUpdate(product);
-            return REDIRECT_PRODUCT;
-
-        }
-
-        return REDIRECT_HOME;
-    }
-
-    @GetMapping(value = {"/","/productList"})
-    public String showList(@RequestParam(defaultValue = "0") int categoryId,
-                           @RequestParam(defaultValue = "") String productName,
-                           ModelMap modelMap,
-                           HttpSession httpSession) {
-
-        if (Objects.nonNull(httpSession.getAttribute(StringConst.SESSION_KEY_USER_ROLE))) {
-            httpSession.setAttribute(StringConst.SESSION_KEY_USER_ID, httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
-            httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.getAllCategory());
-
-            setUpModelMapForProductList(modelMap, categoryId,
-                    (Integer) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID), productName);
-
-            return PRODUCT_LIST_VIEW;
-
-        }
-
-        return REDIRECT_HOME;
-    }
-
-    @GetMapping(value = "/productDetails")
-    public String showDetails(@RequestParam(defaultValue = "0") int productId,
-                              ModelMap modelMap,
-                              HttpSession httpSession) {
-
-        productId = (productId == 0 ?
-                (int) modelMap.getAttribute("redirectProductId") : productId);
-
-        setUpModelMapForProductDetails(modelMap, productId,
-                (Integer) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
-
-        return PRODUCT_DETAILS_VIEW;
-    }
-
-    @PostMapping(value = "/productDiscontinue")
-    public String processDiscontinue(@RequestParam int productId,
-                                     @RequestParam(defaultValue = "false") boolean isContinue,
-                                     HttpSession httpSession) {
-
-        if (AccesChecker.isAdmin(httpSession)) {
-            productService.discontinueProduct(productId, isContinue);
-            return REDIRECT_PRODUCT_LIST;
-
-        }
-
-        return REDIRECT_HOME;
     }
 }

@@ -47,11 +47,9 @@ public class Product extends AbstractModel {
     @OneToMany(mappedBy = "product")
     private Set<CartItem> cartItems;
 
-    @NotNull
     @Min(value = 0)
     private int quantity;
 
-    @NotNull
     @DecimalMin(value = "0.0", inclusive = true)
     private double price;
 

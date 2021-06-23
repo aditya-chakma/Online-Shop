@@ -10,24 +10,16 @@ import java.util.Objects;
 public class AccesChecker {
 
     public static boolean isAdmin(HttpSession session) {
-        if (UserRole.ADMIN.equals(session.getAttribute(StringConst.SESSION_KEY_USER_ROLE))) {
-            return true;
-        }
-
-        return false;
+        return UserRole.ADMIN.equals(session.getAttribute(StringConst.SESSION_KEY_USER_ROLE));
     }
 
     public static boolean isCustomer(HttpSession session) {
-        if (UserRole.CUSTOMER.equals(session.getAttribute(StringConst.SESSION_KEY_USER_ROLE))) {
-            return true;
-        }
-
-        return false;
+        return UserRole.CUSTOMER.equals(session.getAttribute(StringConst.SESSION_KEY_USER_ROLE));
     }
 
     public static boolean isLoggedin(HttpSession session) {
-        Object o = session.getAttribute(StringConst.SESSION_KEY_LOGGEDIN);
+        Boolean loggedIn = (Boolean) session.getAttribute(StringConst.SESSION_KEY_LOGGEDIN);
 
-        return (Objects.nonNull(o) && o.equals(true));
+        return Boolean.TRUE.equals(loggedIn);
     }
 }

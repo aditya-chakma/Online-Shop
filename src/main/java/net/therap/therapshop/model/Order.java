@@ -29,7 +29,6 @@ public class Order extends AbstractModel {
     private int id;
 
     @Column(name = "sub_total")
-    @NotNull
     @DecimalMin("0.0")
     private double subTotal;
 

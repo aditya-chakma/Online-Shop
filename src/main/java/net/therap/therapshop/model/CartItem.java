@@ -32,7 +32,6 @@ public class CartItem extends AbstractModel {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @NotNull
     @Min(value = 0)
     private int quantity;
 
@@ -129,5 +128,18 @@ public class CartItem extends AbstractModel {
 
         return getUser().equals(cartItem.getUser()) &&
                 getProduct().equals(cartItem.getProduct());
+    }
+
+    @Override
+    public String toString() {
+        return "\n\nCartItem{" +
+                "id=" + id +
+                ", user=" + user.getId() + " " + user.getName() +
+                ", product=" + product.getName() +
+                ", quantity=" + quantity +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", total=" + total +
+                "}\n\n";
     }
 }

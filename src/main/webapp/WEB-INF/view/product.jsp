@@ -21,15 +21,10 @@
                 <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <c:out value="${error}"/>
-                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </c:if>
     </div>
     <form:form cssClass="align-items-center" modelAttribute="product" action="/product" method="post"
                enctype="multipart/form-data">
+
         <form:hidden path="id"/>
         <form:hidden path="status"/>
         <form:hidden path="version"/>
@@ -38,6 +33,9 @@
             <label><spring:message code="label.product"/></label>
             <form:input cssClass="form-control" placeholder="Product Name" path="name"/>
         </div>
+        <div class="form-group mt-1">
+            <form:errors path="name"/>
+        </div>
 
         <div class="form-group mt-1">
             <label><spring:message code="label.catagory"/></label>
@@ -45,20 +43,32 @@
                 <form:options items="${listOfCategory}" itemValue="id" itemLabel="name"/>
             </form:select>
         </div>
+        <div class="form-group mt-1">
+            <form:errors path="category"/>
+        </div>
 
         <div class="form-group mt-1">
             <label><spring:message code="label.enterQuantity"/></label>
-            <form:input cssClass="form-control" placeholder="Quantity" path="quantity"/>
+            <form:input type="number" min="0" cssClass="form-control" path="quantity" value="0"/>
+        </div>
+        <div class="form-group mt-1">
+            <form:errors path="quantity"/>
         </div>
 
         <div class="form-group mt-1">
             <label><spring:message code="label.price"/></label>
-            <form:input cssClass="form-control" placeholder="Price" path="price"/>
+            <form:input type="number" min="0" cssClass="form-control" path="price" value="0"/>
+        </div>
+        <div class="form-group mt-1">
+            <form:errors path="price"/>
         </div>
 
         <div class="form-group mt-1">
             <label><spring:message code="label.details"/></label>
             <form:textarea cssClass="form-control" placeholder="Details" path="details"/>
+        </div>
+        <div class="form-group mt-1">
+            <form:errors path="details"/>
         </div>
 
         <div class="form-group mt-1">

@@ -2,7 +2,6 @@ package net.therap.therapshop.service;
 
 import net.therap.therapshop.dao.CartItemDao;
 import net.therap.therapshop.dao.OrderDao;
-import net.therap.therapshop.dao.UserDao;
 import net.therap.therapshop.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,35 +23,35 @@ public class OrderService {
     private OrderDao orderDao;
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private ProductService productService;
 
     @Autowired
     private CartItemDao cartItemDao;
 
-    public Order saveOrUpdate(Order o) {
-        if (o.isNew()) {
-            o.setCreatedAt(new Date());
+    public Order saveOrUpdate(Order order) {
+        if (order.isNew()) {
+            order.setCreatedAt(new Date());
         }
 
-        o.setUpdatedAt(new Date());
-        return orderDao.saveOrUpdate(o);
+        order.setUpdatedAt(new Date());
+        return orderDao.saveOrUpdate(order);
     }
 
     @Transactional
-    public Order saveOrUpdateFromCart(User u) {
-        Set<CartItem> cartItems = u.getCartItems();
+    public Order saveOrUpdateFromCart(User user) {
+        Set<CartItem> cartItems = user.getCartItems();
         Set<OrderProduct> orderProducts = new HashSet<>();
+
         Order order = new Order();
-        order.setUser(u);
+        order.setUser(user);
+
         double price = 0.0;
 
         for (CartItem item : cartItems) {
-            OrderProduct orderProduct = new OrderProduct();
-            orderProduct.setOrder(order);
             Product product = item.getProduct();
+            OrderProduct orderProduct = new OrderProduct();
+
+            orderProduct.setOrder(order);
             orderProduct.setProduct(product);
 
             if (item.getQuantity() > product.getQuantity()) {
@@ -81,7 +80,7 @@ public class OrderService {
             cartItemDao.remove(item.getId());
         }
 
-        u.getCartItems().clear();
+        user.getCartItems().clear();
         return saveOrUpdate(order);
     }
 
