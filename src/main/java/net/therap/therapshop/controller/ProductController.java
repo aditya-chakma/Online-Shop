@@ -141,18 +141,12 @@ public class ProductController {
                            ModelMap modelMap,
                            HttpSession httpSession) {
 
-        if (Objects.nonNull(httpSession.getAttribute(StringConst.SESSION_KEY_USER_ROLE))) {
-            httpSession.setAttribute(StringConst.SESSION_KEY_USER_ID, httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
-            httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.findAll());
+        httpSession.setAttribute(StringConst.SESSION_KEY_CATEGORY_LIST, categoryService.findAll());
 
-            setUpModelMapForProductList(modelMap, categoryId,
-                    (int) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID), productName);
+        setUpModelMapForProductList(modelMap, categoryId,
+                (int) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID), productName);
 
-            return PRODUCT_LIST_VIEW;
-
-        }
-
-        return REDIRECT_HOME;
+        return PRODUCT_LIST_VIEW;
     }
 
     @GetMapping(value = "/productDetails")

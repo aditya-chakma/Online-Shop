@@ -36,16 +36,6 @@ public class Order extends AbstractModel {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Column(name = "created_at")
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Column(name = "updated_at")
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -82,22 +72,6 @@ public class Order extends AbstractModel {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public User getUser() {

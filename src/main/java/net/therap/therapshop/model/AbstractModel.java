@@ -1,8 +1,8 @@
 package net.therap.therapshop.model;
 
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author aditya.chakma
@@ -16,6 +16,14 @@ public abstract class AbstractModel implements Serializable {
     @Version
     int version;
 
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    Date createdAt;
+
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    Date updatedAt;
+
     public int getVersion() {
         return version;
     }
@@ -27,6 +35,22 @@ public abstract class AbstractModel implements Serializable {
     public abstract int getId();
 
     public abstract void setId(int id);
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public abstract boolean isNew();
 }

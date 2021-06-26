@@ -26,9 +26,6 @@ public class ComplaintReply extends AbstractModel implements Comparable<Complain
     @Size(min = 1, max = 500)
     private String message;
 
-    @Column(name = "created_at", nullable = false)
-    private Date createdAt;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "complaint_id", referencedColumnName = "id")
     private Complaint complaint;
@@ -49,14 +46,6 @@ public class ComplaintReply extends AbstractModel implements Comparable<Complain
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Complaint getComplaint() {

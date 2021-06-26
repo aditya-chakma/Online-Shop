@@ -34,14 +34,6 @@ public class CartItem extends AbstractModel {
     @Min(value = 0)
     private int quantity;
 
-    @Column(name = "created_at")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Column(name = "updated_at")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date updatedAt;
-
     @Transient
     private double total;
 
@@ -77,22 +69,6 @@ public class CartItem extends AbstractModel {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public double getTotal() {

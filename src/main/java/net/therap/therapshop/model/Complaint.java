@@ -37,10 +37,6 @@ public class Complaint extends AbstractModel {
     @Enumerated(EnumType.STRING)
     private ComplaintStatus status;
 
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
     @ManyToOne(optional = false)
     @JoinColumn(referencedColumnName = "id", name = "user_id")
     private User user;
@@ -81,14 +77,6 @@ public class Complaint extends AbstractModel {
 
     public void setStatus(ComplaintStatus status) {
         this.status = status;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public User getUser() {

@@ -64,14 +64,6 @@ public class User extends AbstractModel {
     @Size(min = 1, max = 100)
     private String imageLink;
 
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
-
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Complaint> complaints;
 
@@ -156,22 +148,6 @@ public class User extends AbstractModel {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public Set<Complaint> getComplaints() {

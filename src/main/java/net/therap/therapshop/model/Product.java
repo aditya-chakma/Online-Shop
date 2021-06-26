@@ -60,14 +60,6 @@ public class Product extends AbstractModel {
     @Size(max = 500)
     private String details;
 
-    @Column(name = "created_at")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Column(name = "updated_at")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date updatedAt;
-
     @Transient
     private List<MultipartFile> images;
 
@@ -142,22 +134,6 @@ public class Product extends AbstractModel {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public List<MultipartFile> getImages() {

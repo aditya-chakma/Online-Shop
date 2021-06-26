@@ -37,10 +37,6 @@ public class Rating extends AbstractModel {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "created_at")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date createdAt;
-
     @Override
     public int getId() {
         return id;
@@ -73,14 +69,6 @@ public class Rating extends AbstractModel {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     @Override

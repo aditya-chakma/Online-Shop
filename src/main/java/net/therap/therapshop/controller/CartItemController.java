@@ -57,9 +57,6 @@ public class CartItemController {
     @Autowired
     private MessageSource messageSource;
 
-    @Autowired
-    private UserDao userDao;
-
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(cartItemValidator);
@@ -88,10 +85,8 @@ public class CartItemController {
                           HttpSession httpSession,
                           ModelMap modelMap,
                           RedirectAttributes redirectAttributes) {
-
         if (AccesChecker.isCustomer(httpSession)) {
             if (bindingResult.hasErrors()) {
-                System.out.println(cartItem);
                 setUpModelMapForCartItemAddUpdate(modelMap, cartItem,
                         (int) httpSession.getAttribute(StringConst.SESSION_KEY_USER_ID));
 
@@ -100,7 +95,6 @@ public class CartItemController {
 
             redirectAttributes.addFlashAttribute(COMMAND_MESSAGE,
                     messageSource.getMessage("message.cartUpdate", null, null));
-            //System.out.println(cartItem);
             cartItemService.saveOrUpdate(cartItem);
             return REDIRECT_CART_ITEM_VIEW;
 

@@ -20,7 +20,6 @@ public class Dao {
     public <T extends AbstractModel> T saveOrUpdate(T t) {
         if (t.isNew()) {
             em.persist(t);
-            em.flush();
         } else {
             t = em.merge(t);
         }
