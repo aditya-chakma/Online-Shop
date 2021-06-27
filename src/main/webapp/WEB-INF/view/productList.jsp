@@ -58,7 +58,7 @@
                             <form:form modelAttribute="cartItemCmd" action="/cartItem" method="post">
                                 <form:hidden path="id"/>
                                 <form:hidden path="product" value="${product}"/>
-                                <form:hidden path="user.id"/>
+                                <form:hidden path="user"/>
                                 <form:hidden path="quantity"/>
                                 <form:hidden path="version"/>
                                 <c:if test="${product.status == 'OUT_OF_STOCK' || product.status == 'DISCONTINUED'}">

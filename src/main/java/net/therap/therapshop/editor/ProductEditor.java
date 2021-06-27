@@ -26,7 +26,7 @@ public class ProductEditor extends PropertyEditorSupport {
     public void setAsText(String hashCode) throws IllegalArgumentException {
         if (Objects.nonNull(hashCode)) {
             String[] token = hashCode.split("@");
-            int productId = Integer.parseInt(token[1]);
+            int productId = Integer.parseInt(token[1], 16);
             setValue(productService.findById(productId));
 
         } else {

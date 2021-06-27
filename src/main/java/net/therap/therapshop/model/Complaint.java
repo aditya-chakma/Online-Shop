@@ -125,4 +125,19 @@ public class Complaint extends AbstractModel {
 
         return Objects.equals(getId(), ((Complaint) o).getId());
     }
+
+    @Override
+    public String toString() {
+        return "Complaint{" +
+                "version=" + version +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", status=" + status +
+                ", user=" + user +
+                ", complaintReplies=" + complaintReplies +
+                ", reply=" + reply +
+                '}';
+    }
 }

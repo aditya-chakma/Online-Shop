@@ -27,8 +27,13 @@ public class ComplaintReply extends AbstractModel implements Comparable<Complain
     private String message;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "complaint_id", referencedColumnName = "id")
+    @JoinColumn(name = "complaint_id")
     private Complaint complaint;
+
+    public ComplaintReply() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 
     @Override
     public int getId() {

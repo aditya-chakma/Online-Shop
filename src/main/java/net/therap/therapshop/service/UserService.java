@@ -40,11 +40,7 @@ public class UserService {
 
     public User saveOrUpdate(User user) throws IOException {
         if (user.isNew()) {
-            user.setCreatedAt(new Date());
             user.setHashedPassword(pe.encode(user.getHashedPassword()));
-
-        } else {
-            user.setUpdatedAt(new Date());
         }
 
         MultipartFile file = user.getImage();
@@ -58,7 +54,6 @@ public class UserService {
     }
 
     public User saveOrUpdatePwOnly(User user) {
-        user.setUpdatedAt(new Date());
         user.setHashedPassword(pe.encode(user.getHashedPassword()));
         return userDao.saveOrUpdate(user);
     }

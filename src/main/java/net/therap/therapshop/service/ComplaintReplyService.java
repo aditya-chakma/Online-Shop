@@ -26,10 +26,6 @@ public class ComplaintReplyService {
     }
 
     public ComplaintReply saveOrUpdate(ComplaintReply complaintReply) {
-        if (complaintReply.isNew()) {
-            complaintReply.setCreatedAt(new Date());
-        }
-
         return complaintReplyDao.saveOrUpdate(complaintReply);
     }
 }

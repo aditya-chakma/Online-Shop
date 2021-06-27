@@ -28,11 +28,6 @@ public class OrderService {
     private CartItemService cartItemService;
 
     public Order saveOrUpdate(Order order) {
-        if (order.isNew()) {
-            order.setCreatedAt(new Date());
-        }
-
-        order.setUpdatedAt(new Date());
         return orderDao.saveOrUpdate(order);
     }
 
@@ -78,10 +73,7 @@ public class OrderService {
 
         for (CartItem item : cartItems) {
             Product product = item.getProduct();
-            OrderProduct orderProduct = new OrderProduct();
-
-            orderProduct.setOrder(order);
-            orderProduct.setProduct(product);
+            OrderProduct orderProduct = new OrderProduct(order, product);
 
             if (item.getQuantity() > product.getQuantity()) {
                 if (product.getQuantity() > 0) {

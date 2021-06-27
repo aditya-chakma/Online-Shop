@@ -71,6 +71,8 @@ public class ExceptionResolver {
         logger.error("Unknown exception: " + e.getMessage());
         logger.trace("Trace: " + Arrays.toString(e.getStackTrace()));
 
+        e.printStackTrace();
+
         ModelAndView model = new ModelAndView();
         model.setViewName(VIEW_ERROR);
         model.addObject(COMMAND_MESSAGE, "unknown:" + e.getMessage());

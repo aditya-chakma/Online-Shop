@@ -2,6 +2,7 @@ package net.therap.therapshop.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -30,6 +31,16 @@ public class OrderProduct extends AbstractModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
+    public OrderProduct() {
+    }
+
+    public OrderProduct(Order order, Product product) {
+        this.order = order;
+        this.product = product;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
 
     @Override
     public int getId() {

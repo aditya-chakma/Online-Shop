@@ -116,4 +116,18 @@ public class Order extends AbstractModel {
 
         return Objects.equals(getId(), ((Order) o).getId());
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "version=" + version +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", id=" + id +
+                ", subTotal=" + subTotal +
+                ", status=" + status +
+                ", user=" + user +
+                ", orderProducts=" + orderProducts +
+                '}';
+    }
 }

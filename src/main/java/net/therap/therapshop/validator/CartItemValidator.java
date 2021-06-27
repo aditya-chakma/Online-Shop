@@ -33,6 +33,8 @@ public class CartItemValidator implements Validator {
     public void validate(Object target, Errors errors) {
         CartItem cartItem = (CartItem) target;
 
+        System.out.println("\n" + cartItem + "\n");
+
         CartItem existedCartItem = cartItemService.
                 getCartItemByUserIdAndProductId(cartItem.getUser().getId(), cartItem.getProduct().getId());
 

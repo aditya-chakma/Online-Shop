@@ -26,7 +26,7 @@ public class UserEditor extends PropertyEditorSupport {
     public void setAsText(String hashCode) throws IllegalArgumentException {
         if (Objects.nonNull(hashCode)) {
             String[] token = hashCode.split("@");
-            int userId = Integer.parseInt(token[1]);
+            int userId = Integer.parseInt(token[1], 16);
             setValue(userService.findById(userId));
         } else {
             setValue(null);

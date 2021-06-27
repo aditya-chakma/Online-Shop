@@ -1,16 +1,19 @@
 package net.therap.therapshop.dao;
 
 import net.therap.therapshop.model.AbstractModel;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author aditya.chakma
  * @since 6/22/21
  */
+@Repository
 public class Dao {
 
     @PersistenceContext
@@ -18,7 +21,10 @@ public class Dao {
 
     @Transactional
     public <T extends AbstractModel> T saveOrUpdate(T t) {
+        t.setUpdatedAt(new Date());
+
         if (t.isNew()) {
+            t.setCreatedAt(new Date());
             em.persist(t);
         } else {
             t = em.merge(t);

@@ -33,11 +33,8 @@ public class ComplaintService {
 
     public Complaint saveOrUpdate(Complaint complaint) {
         if (complaint.isNew()) {
-            complaint.setCreatedAt(new Date());
-
             ComplaintReply complaintReply = complaint.getReply();
             complaintReply.setComplaint(complaint);
-
             complaint.getComplaintReplies().add(complaintReply);
         }
 

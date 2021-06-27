@@ -40,6 +40,7 @@ public class CartItemController {
     private static final String CART_ITEM_VIEW = "cartItem";
 
     private static final String REDIRECT_LOGIN = "redirect:/login";
+    private static final String REDIRECT_HOME = "redirect:/home";
     private static final String REDIRECT_CART_ITEM_VIEW = "redirect:/cartItem";
 
     @Autowired
@@ -75,7 +76,7 @@ public class CartItemController {
             return CART_ITEM_VIEW;
 
         } else {
-            return REDIRECT_LOGIN;
+            return REDIRECT_HOME;
         }
     }
 
@@ -99,7 +100,7 @@ public class CartItemController {
             return REDIRECT_CART_ITEM_VIEW;
 
         } else {
-            return REDIRECT_LOGIN;
+            return REDIRECT_HOME;
         }
     }
 
@@ -117,7 +118,7 @@ public class CartItemController {
             return REDIRECT_CART_ITEM_VIEW;
 
         } else {
-            return REDIRECT_LOGIN;
+            return REDIRECT_HOME;
         }
     }
 
