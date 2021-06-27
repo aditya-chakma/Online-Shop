@@ -65,7 +65,7 @@ public class CartItemController {
         webDataBinder.registerCustomEditor(User.class, "user", userEditor);
     }
 
-    @GetMapping(value = "/cartItem")
+    @RequestMapping(method = RequestMethod.GET, value = "/cartItem")
     public String show(ModelMap modelMap,
                        HttpSession httpSession) {
 
@@ -80,7 +80,7 @@ public class CartItemController {
         }
     }
 
-    @PostMapping(value = "/cartItem")
+    @RequestMapping(method = RequestMethod.POST, value = "/cartItem")
     public String process(@Valid @ModelAttribute(name = "cartItemCmd") CartItem cartItem,
                           BindingResult bindingResult,
                           HttpSession httpSession,
@@ -104,7 +104,7 @@ public class CartItemController {
         }
     }
 
-    @PostMapping(value = "/cartItemDelete")
+    @RequestMapping(method = RequestMethod.POST, value = "/cartItemDelete")
     public String processDelete(@RequestParam(defaultValue = "0") int cartItemId,
                                 HttpSession httpSession,
                                 RedirectAttributes redirectAttributes) {

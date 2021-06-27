@@ -9,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -38,7 +35,7 @@ public class ProfileController {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
-    @GetMapping(value = "/profile")
+    @RequestMapping(method = RequestMethod.GET, value = "/profile")
     public String show(HttpSession session,
                        ModelMap model) {
 
@@ -46,7 +43,7 @@ public class ProfileController {
         return VIEW_PROFILE;
     }
 
-    @GetMapping(value = "/updateProfile")
+    @RequestMapping(method = RequestMethod.GET, value = "/updateProfile")
     public String updateProfile(HttpSession session,
                                 ModelMap model) {
 
@@ -59,7 +56,7 @@ public class ProfileController {
         return VIEW_USER_UPDATE;
     }
 
-    @PostMapping(value = "/updateProfile")
+    @RequestMapping(method = RequestMethod.POST, value = "/updateProfile")
     public String updateProfile(@Valid @ModelAttribute User user,
                                 BindingResult result,
                                 HttpSession session,

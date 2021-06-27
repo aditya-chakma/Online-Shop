@@ -88,7 +88,7 @@ public class ProductController {
         webDataBinder.registerCustomEditor(User.class, "user", userEditor);
     }
 
-    @GetMapping(value = "/product")
+    @RequestMapping(method = RequestMethod.GET, value = "/product")
     public String show(@RequestParam(value = "id", defaultValue = "0") int productId,
                        @RequestParam(defaultValue = EN) String lang,
                        ModelMap modelMap,
@@ -108,7 +108,7 @@ public class ProductController {
         return REDIRECT_HOME;
     }
 
-    @PostMapping(value = "/product")
+    @RequestMapping(method = RequestMethod.POST, value = "/product")
     public String process(@Valid @ModelAttribute("product") Product product,
                           BindingResult bindingResult,
                           @RequestParam(defaultValue = EN) String lang,
@@ -135,7 +135,7 @@ public class ProductController {
         return REDIRECT_HOME;
     }
 
-    @GetMapping(value = {"/", "/productList"})
+    @RequestMapping(method = RequestMethod.GET, value = {"/", "/productList"})
     public String showList(@RequestParam(defaultValue = "0") int categoryId,
                            @RequestParam(defaultValue = "") String productName,
                            ModelMap modelMap,
@@ -149,7 +149,7 @@ public class ProductController {
         return PRODUCT_LIST_VIEW;
     }
 
-    @GetMapping(value = "/productDetails")
+    @RequestMapping(method = RequestMethod.GET, value = "/productDetails")
     public String showDetails(@RequestParam(defaultValue = "0") int productId,
                               ModelMap modelMap,
                               HttpSession httpSession) {
@@ -163,7 +163,7 @@ public class ProductController {
         return PRODUCT_DETAILS_VIEW;
     }
 
-    @PostMapping(value = "/productDiscontinue")
+    @RequestMapping(method = RequestMethod.POST, value = "/productDiscontinue")
     public String processDiscontinue(@RequestParam int productId,
                                      @RequestParam(defaultValue = "false") boolean isContinue,
                                      HttpSession httpSession) {

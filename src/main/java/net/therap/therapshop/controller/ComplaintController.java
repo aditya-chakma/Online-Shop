@@ -46,7 +46,7 @@ public class ComplaintController {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
-    @GetMapping(value = "/complaintList")
+    @RequestMapping(method = RequestMethod.GET, value = "/complaintList")
     public String showList(HttpSession session,
                            ModelMap model) {
 
@@ -64,7 +64,7 @@ public class ComplaintController {
         return VIEW_COMPLAINT_LIST;
     }
 
-    @GetMapping(value = "/complaint")
+    @RequestMapping(method = RequestMethod.GET, value = "/complaint")
     public String show(HttpSession session,
                        ModelMap model) throws NoAccessException {
 
@@ -79,7 +79,7 @@ public class ComplaintController {
         return VIEW_COMPLAINT;
     }
 
-    @PostMapping(value = "/complaint")
+    @RequestMapping(method = RequestMethod.POST, value = "/complaint")
     public String process(@Valid @ModelAttribute Complaint complaint,
                           BindingResult result,
                           ModelMap model) {
@@ -93,7 +93,7 @@ public class ComplaintController {
         return REDIRECT_CLIST;
     }
 
-    @PostMapping(value = "/closeComplaint")
+    @RequestMapping(method = RequestMethod.POST, value = "/closeComplaint")
     public String close(@RequestParam int id,
                         HttpSession session,
                         ModelMap model) {

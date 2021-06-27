@@ -58,7 +58,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping(value = "/category")
+    @RequestMapping(method = RequestMethod.GET, value = "/category")
     public String show(@RequestParam(defaultValue = "0") int categoryId,
                        ModelMap modelMap,
                        HttpSession httpSession) {
@@ -74,7 +74,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping(value = "/category")
+    @RequestMapping(method = RequestMethod.POST, value = "/category")
     public String process(@Valid @ModelAttribute Category category,
                           BindingResult bindingResult,
                           HttpSession httpSession,

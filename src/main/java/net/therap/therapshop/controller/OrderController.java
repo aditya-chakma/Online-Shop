@@ -52,7 +52,7 @@ public class OrderController {
                 new CustomDateEditor(new SimpleDateFormat(StringConst.DATE_TIME_FORMAT), false));
     }
 
-    @GetMapping(value = "/order")
+    @RequestMapping(method = RequestMethod.GET, value = "/order")
     public String show(@RequestParam(name = "id") int orderId,
                        HttpSession session,
                        ModelMap model) {
@@ -64,7 +64,7 @@ public class OrderController {
         return VIEW_ORDER;
     }
 
-    @PostMapping("/order")
+    @RequestMapping(method = RequestMethod.POST, value = "/order")
     public String process(@Valid @ModelAttribute Order order,
                           BindingResult result,
                           HttpSession session,
@@ -83,7 +83,7 @@ public class OrderController {
         return REDIRECT_OL;
     }
 
-    @GetMapping(value = "/orderList")
+    @RequestMapping(method = RequestMethod.GET, value = "/orderList")
     public String show(HttpSession session,
                        ModelMap model) {
 
@@ -101,7 +101,7 @@ public class OrderController {
         return VIEW_ORDER_LIST;
     }
 
-    @PostMapping(value = "/proceed")
+    @RequestMapping(method = RequestMethod.POST, value = "/proceed")
     public String proceed(ModelMap model,
                           HttpSession session) {
         int id = (int) session.getAttribute(StringConst.SESSION_KEY_USER_ID);

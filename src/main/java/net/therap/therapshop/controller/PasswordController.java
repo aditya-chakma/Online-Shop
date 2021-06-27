@@ -9,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -43,7 +40,7 @@ public class PasswordController {
         binder.addValidators(passwordValidator);
     }
 
-    @GetMapping(value = "updatePassword")
+    @RequestMapping(method = RequestMethod.GET, value = "updatePassword")
     public String updatePassword(HttpSession session,
                                  ModelMap model) {
 
@@ -54,7 +51,7 @@ public class PasswordController {
         return VIEW_UPDATE_PW;
     }
 
-    @PostMapping(value = "/updatePassword")
+    @RequestMapping(method = RequestMethod.POST, value = "/updatePassword")
     public String updatePassword(@Valid @ModelAttribute PasswordCommand passwordCommand,
                                  BindingResult result,
                                  ModelMap model) throws IOException {

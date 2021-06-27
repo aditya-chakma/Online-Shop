@@ -42,7 +42,7 @@ public class UserController {
         binder.addValidators(registrationValidator);
     }
 
-    @GetMapping(value = "/user")
+    @RequestMapping(method = RequestMethod.GET, value = "/user")
     public String show(@RequestParam(defaultValue = "0") int id,
                        HttpSession session,
                        ModelMap model) {
@@ -56,7 +56,7 @@ public class UserController {
         return VIEW_USER;
     }
 
-    @PostMapping(value = "/user")
+    @RequestMapping(method = RequestMethod.POST, value = "/user")
     public String process(@Valid @ModelAttribute User user,
                           BindingResult result,
                           HttpSession session,
@@ -75,7 +75,7 @@ public class UserController {
         return REDIRECT_HOME;
     }
 
-    @GetMapping("/profileImage")
+    @RequestMapping(method = RequestMethod.GET, value = "/profileImage")
     public void image(HttpSession session,
                       HttpServletResponse response) throws IOException {
 

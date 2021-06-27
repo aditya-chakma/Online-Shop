@@ -38,7 +38,7 @@ public class Complaint extends AbstractModel {
     private ComplaintStatus status;
 
     @ManyToOne(optional = false)
-    @JoinColumn(referencedColumnName = "id", name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "complaint", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

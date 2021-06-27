@@ -43,7 +43,7 @@ public class ComplaintReplyController {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
-    @GetMapping(value = "/complaintReply")
+    @RequestMapping(method = RequestMethod.GET, value = "/complaintReply")
     public String show(@RequestParam int complaintId,
                        HttpSession session,
                        ModelMap model) {
@@ -53,7 +53,7 @@ public class ComplaintReplyController {
         return VIEW_CREPLY;
     }
 
-    @PostMapping(value = "/complaintReply")
+    @RequestMapping(method = RequestMethod.POST, value = "/complaintReply")
     public String process(@Valid @ModelAttribute ComplaintReply complaintReply,
                           BindingResult result,
                           HttpSession session,

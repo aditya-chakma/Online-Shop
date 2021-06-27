@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +39,7 @@ public class ProductImageController {
     @Autowired
     private ProductImageService productImageService;
 
-    @GetMapping(value = "/image")
+    @RequestMapping(method = RequestMethod.GET, value = "/image")
     public void getImage(@RequestParam(defaultValue = "0") int productId,
                          @RequestParam(defaultValue = "0") int imageId,
                          HttpServletResponse res) {
@@ -51,7 +53,7 @@ public class ProductImageController {
         }
     }
 
-    @GetMapping("/removeImage")
+    @RequestMapping(method = RequestMethod.GET, value = "/removeImage")
     public String process(@RequestParam int productId,
                           @RequestParam int imageId,
                           ModelMap modelMap,

@@ -25,11 +25,11 @@ public class OrderProduct extends AbstractModel {
     private int quantity;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     public OrderProduct() {

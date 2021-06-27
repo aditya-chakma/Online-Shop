@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -49,7 +46,7 @@ public class LoginController {
         binder.addValidators(loginValidator);
     }
 
-    @GetMapping("/login")
+    @RequestMapping(method = RequestMethod.GET, value = "/login")
     public String login(HttpServletRequest request,
                         ModelMap model) {
 
@@ -61,7 +58,7 @@ public class LoginController {
         return VIEW_LOGIN;
     }
 
-    @PostMapping(value = "/login")
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
     public String login(@Valid @ModelAttribute LoginCommand loginCommand,
                         BindingResult result,
                         HttpServletRequest request,
@@ -76,7 +73,7 @@ public class LoginController {
         return REDIRECT_PL;
     }
 
-    @GetMapping(value = "/logout")
+    @RequestMapping(method = RequestMethod.GET, value = "/logout")
     public String logout(HttpServletRequest request) {
 
         sessionHelper.clearSessionAttribute(request);
