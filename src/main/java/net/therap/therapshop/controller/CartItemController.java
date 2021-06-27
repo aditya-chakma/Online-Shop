@@ -34,12 +34,10 @@ public class CartItemController {
     private static final String COMMAND_CART_ITEMS = "cartItemsCmd";
     private static final String COMMAND_GRAND_TOTAL = "grandTotalCmd";
     private static final String COMMAND_CART_ITEM = "cartItemCmd";
-    private static final String COMMAND_ERROR = "error";
     private static final String COMMAND_MESSAGE = "message";
 
     private static final String CART_ITEM_VIEW = "cartItem";
 
-    private static final String REDIRECT_LOGIN = "redirect:/login";
     private static final String REDIRECT_HOME = "redirect:/home";
     private static final String REDIRECT_CART_ITEM_VIEW = "redirect:/cartItem";
 

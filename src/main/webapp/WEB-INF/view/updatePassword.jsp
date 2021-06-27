@@ -12,7 +12,7 @@
     <table class="table table-striped table-bordered table-responsive" style="width: auto">
         <tbody>
         <form:form action="updatePassword" method="post" modelAttribute="passwordCommand">
-            <form:hidden path="userId"/>
+<%--            <form:hidden path="userId"/>--%>
 
             <tr>
                 <td><spring:message code="password.old"/></td>

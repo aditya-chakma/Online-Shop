@@ -23,6 +23,9 @@ import javax.validation.Valid;
  * @since 6/8/21
  */
 @Controller
+@SessionAttributes(value = {
+        "complaint"
+})
 public class ComplaintReplyController {
 
     private static final String VIEW_CREPLY = "complaintReply";

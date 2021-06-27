@@ -13,12 +13,6 @@
         <table class="table table-responsive table-bordered table-striped">
             <tbody>
             <tr>
-                <td colspan="2">
-                    <form:hidden path="id"/>
-                </td>
-            </tr>
-
-            <tr>
                 <td><spring:message code="user.name"/> </td>
                 <td><form:input path="name"/></td>
             </tr>

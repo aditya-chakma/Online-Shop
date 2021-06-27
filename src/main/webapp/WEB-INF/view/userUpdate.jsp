@@ -10,8 +10,8 @@
 
 <div class="d-flex justify-content-center text-center mt-5">
     <form:form method="post" action="updateProfile" modelAttribute="user" enctype="multipart/form-data">
-        <form:hidden path="version"/>
-        <form:hidden path="id"/>
+<%--        <form:hidden path="version"/>--%>
+<%--        <form:hidden path="id"/>--%>
 
         <table class="table table-bordered table-responsive table-striped">
             <tr>

@@ -20,6 +20,7 @@ import java.io.IOException;
  * @since 6/10/21
  */
 @Controller
+@SessionAttributes("user")
 public class ProfileController {
 
     private static final String VIEW_PROFILE = "profile";
@@ -39,7 +40,9 @@ public class ProfileController {
     public String show(HttpSession session,
                        ModelMap model) {
 
-        model.addAttribute(COMMAND_USER, userService.findById((int) session.getAttribute(StringConst.SESSION_KEY_USER_ID)));
+        int userId = (int) session.getAttribute(StringConst.SESSION_KEY_USER_ID);
+        model.addAttribute(COMMAND_USER, userService.findById(userId));
+
         return VIEW_PROFILE;
     }
 
@@ -70,5 +73,10 @@ public class ProfileController {
 
         userService.saveOrUpdate(user);
         return VIEW_PROFILE;
+    }
+
+    @ModelAttribute(COMMAND_USER)
+    private User user() {
+        return new User();
     }
 }

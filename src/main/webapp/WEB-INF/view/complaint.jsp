@@ -11,9 +11,6 @@
     <table class="table table-striped table-bordered table-responsive" style="width: auto">
         <caption class="caption-top"><spring:message code="complaint.caption.newComplaint"/></caption>
         <form:form action="complaint" method="post" modelAttribute="complaint">
-            <form:hidden path="user.id"/>
-            <form:hidden path="version"/>
-
             <tbody>
                 <tr>
                     <td><spring:message code="complaint.title"/></td>

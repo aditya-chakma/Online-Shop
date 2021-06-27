@@ -23,6 +23,7 @@ import java.io.IOException;
  * @since 6/5/21
  */
 @Controller
+@SessionAttributes("user")
 public class UserController {
 
     private final String COMMAND_USER = "user";
@@ -82,5 +83,10 @@ public class UserController {
         response.getOutputStream().write(
                 userService.getImageByteArray(
                         (int) session.getAttribute(StringConst.SESSION_KEY_USER_ID)));
+    }
+
+    @ModelAttribute(COMMAND_USER)
+    private User user() {
+        return new User();
     }
 }

@@ -24,6 +24,7 @@ import java.util.List;
  * @since 6/8/21
  */
 @Controller
+@SessionAttributes("complaint")
 public class ComplaintController {
 
     private static final String VIEW_COMPLAINT_LIST = "complaintList";
@@ -65,15 +66,14 @@ public class ComplaintController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/complaint")
-    public String show(HttpSession session,
+    public String show(@ModelAttribute Complaint complaint,
+                       HttpSession session,
                        ModelMap model) throws NoAccessException {
 
         if (!AccesChecker.isCustomer(session)) {
             throw new NoAccessException();
         }
 
-        Complaint complaint = new Complaint();
-        complaint.setUser(userService.findById((int) session.getAttribute(StringConst.SESSION_KEY_USER_ID)));
         model.addAttribute(COMMAND_COMPLAINT, complaint);
 
         return VIEW_COMPLAINT;
@@ -94,7 +94,7 @@ public class ComplaintController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/closeComplaint")
-    public String close(@RequestParam int id,
+    public String close(@ModelAttribute Complaint complaint,
                         HttpSession session,
                         ModelMap model) {
 
@@ -102,10 +102,19 @@ public class ComplaintController {
             return REDIRECT_HOME;
         }
 
-        Complaint complaint = complaintService.findById(id);
+
         complaint.setStatus(ComplaintStatus.CLOSED);
         complaintService.saveOrUpdate(complaint);
 
         return REDIRECT_CLIST;
+    }
+
+    @ModelAttribute(COMMAND_COMPLAINT)
+    private Complaint complaint(HttpSession session) {
+        Complaint complaint = new Complaint();
+        int userId = (int) session.getAttribute(StringConst.SESSION_KEY_USER_ID);
+
+        complaint.setUser(userService.findById(userId));
+        return complaint;
     }
 }

@@ -12,7 +12,7 @@
     <div class="col-md-3">
         <c:if test="${isOpen && isAdmin}">
             <form:form method="post" action="closeComplaint" modelAttribute="complaint">
-                <form:hidden path="id"/>
+<%--                <form:hidden path="id"/>--%>
                 <button type="submit" class="btn btn-primary"><spring:message code="complaint.close"/> </button>
             </form:form>
         </c:if>
