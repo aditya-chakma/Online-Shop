@@ -1,4 +1,4 @@
-# Therap Shop
+# Online Shop
 
 ## Introduction
 
